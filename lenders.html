@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Lenders & Realtors - Sunnybrooke Condo Association</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="icon" href="icon-192.png" type="image/png"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Sunnybrooke Condo Association"/>
+</head>
+<body>
+
+
+<script>
+  function toggleMenu(){var nl=document.getElementById("nav-links");if(nl)nl.classList.toggle("open");}
+  var deferredInstallPrompt=null;
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
+  function installApp(){
+    var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+    if(isIOS){
+      alert("To install: tap the Share icon, then \"Add to Home Screen\".");
+      return;
+    }
+    if(deferredInstallPrompt){
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then(function(){deferredInstallPrompt=null;});
+    } else {
+      alert("To install: open your browser menu and choose \"Install app\" or \"Add to Home Screen\".");
+    }
+  }
+</script>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand-row">
+      <a class="nav-brand" href="index.html">Sunnybrooke Condo Association</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li class="nav-install-item"><a href="#" onclick="installApp();return false;">Install The SCA App!</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="documents.html">Documents</a></li>
+      <li><a href="vendors.html">Preferred Vendors</a></li>
+      <li><a href="lenders.html" class="active">Lenders &amp; Realtors</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="residents.html">Residents</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+<div class="page-header"><h1>Lenders &amp; Realtors</h1><p>Association information for real estate professionals</p></div>
+<div class="container" style="max-width:800px;">
+<div class="notice"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Please review this page before sending questionnaires.</div>
+<div class="info-block"><h2>Legal Name &amp; Mailing Address</h2><p><strong>Sunnybrooke Condo Association</strong><br>PO Box 1367<br>Dover, NH, 03821</p><div class="highlight-box">Sunnybrooke Condo Association is not owned or operated under any management company. It is run entirely by volunteer homeowners.</div><p>General email: <a href="mailto:SunnybrookeCondo@gmail.com">SunnybrookeCondo@gmail.com</a></p></div>
+<div class="info-block"><h2>Association Overview</h2><p>Sunnybrooke Condo Association consists of <strong>37 residential, privately-owned homes</strong> located on Sunnybrooke Drive and Morgan Way in Dover, NH, established in 1988.</p></div>
+<div class="info-block"><h2>Available Documents</h2><p>The following documents are available on the <a href="documents.html">Documents page</a>:</p><ul><li>Declaration of Condominium</li><li>By-Laws</li><li>New Owner Application ($150.00 one-time fee)</li><li>Approved Budgets</li></ul><p style="margin-top:1rem;">A <strong>Seller's Certificate</strong> is provided upon request.</p></div>
+<div class="info-block"><h2>Financial Information</h2>
+<p><strong>Monthly dues:</strong> $150.00, due on the 1st of each month</p>
+<p>Please see the budget report on the <a href="documents.html">Documents page</a> for an overview of what dues cover.</p>
+<div class="highlight-box">
+<p>Currently, no properties are in arrears.</p>
+<p>Currently, there are no pending legal matters between a property owner and the Association.</p>
+</div>
+<p style="margin-top:0.75rem;"><em>TAX ID and insurance information provided upon request.</em></p>
+</div>
+<div class="info-block"><h2>Additional Requests</h2><p>Email: <a href="mailto:SunnybrookeCondo@gmail.com">SunnybrookeCondo@gmail.com</a></p><p style="margin-top:0.5rem;font-style:italic;color:var(--text-muted);">TAX ID and insurance information provided upon request.</p></div>
+</div></main>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand-wrap"><span class="footer-brand"><a href="https://www.facebook.com/profile.php?id=61590887171758" target="_blank" rel="noopener" style="display:inline-block;line-height:0;"><img src="brandlogo.png" alt="logo" style="height:22px;width:auto;vertical-align:middle;opacity:0.75;"/></a></span></div>
+    <p><strong>Sunnybrooke Condo Association</strong> &middot; PO Box 1367, Dover, NH, 03821 &middot; <a href="mailto:SunnybrookeCondo@gmail.com">SunnybrookeCondo@gmail.com</a></p>
+    <div class="footer-brand-spacer"></div>
+  </div>
+</footer>
+</body>
+</html>

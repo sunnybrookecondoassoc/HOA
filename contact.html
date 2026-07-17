@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Contact - Sunnybrooke Condo Association</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="icon" href="icon-192.png" type="image/png"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Sunnybrooke Condo Association"/>
+</head>
+<body>
+
+
+<script>
+  function toggleMenu(){var nl=document.getElementById("nav-links");if(nl)nl.classList.toggle("open");}
+  var deferredInstallPrompt=null;
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
+  function installApp(){
+    var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+    if(isIOS){
+      alert("To install: tap the Share icon, then \"Add to Home Screen\".");
+      return;
+    }
+    if(deferredInstallPrompt){
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then(function(){deferredInstallPrompt=null;});
+    } else {
+      alert("To install: open your browser menu and choose \"Install app\" or \"Add to Home Screen\".");
+    }
+  }
+</script>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand-row">
+      <a class="nav-brand" href="index.html">Sunnybrooke Condo Association</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li class="nav-install-item"><a href="#" onclick="installApp();return false;">Install The SCA App!</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="documents.html">Documents</a></li>
+      <li><a href="vendors.html">Preferred Vendors</a></li>
+      <li><a href="lenders.html">Lenders &amp; Realtors</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="residents.html">Residents</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+<div class="page-header"><h1>Contact Us</h1><p>Board of Directors &amp; general association contact</p></div>
+<div class="container" style="max-width:860px;">
+<div class="info-block"><h2>Board of Directors</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.25rem;margin-top:0.5rem;"><div class="board-card"><div class="board-role">President</div><div class="board-name">Fred Levasseur</div><a href="tel:9785788663" class="board-contact"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.09 6.09l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 978-578-8663</a><a href="mailto:Sunnybrookepresident25@gmail.com" class="board-contact"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Sunnybrookepresident25@gmail.com</a></div><div class="board-card"><div class="board-role">Secretary</div><div class="board-name">Kelly Allen</div><a href="tel:2076042530" class="board-contact"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.09 6.09l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 207-604-2530</a><a href="mailto:sunnybrookecondo@gmail.com" class="board-contact"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> sunnybrookecondo@gmail.com</a></div><div class="board-card"><div class="board-role">Treasurer</div><div class="board-name">Elizabeth McLaughlin</div><a href="tel:6037674083" class="board-contact"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.09 6.09l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 603-767-4083</a><a href="mailto:earlin2@comcast.net" class="board-contact"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> earlin2@comcast.net</a></div><div class="board-card"><div class="board-role">Member at Large</div><div class="board-name">Ron Lavoie</div><a href="tel:6038660362" class="board-contact"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.09 6.09l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 603-866-0362</a><a href="mailto:rrlavoie@comcast.net" class="board-contact"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> rrlavoie@comcast.net</a></div></div></div>
+<div class="info-block"><h2>General Contact</h2><p><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> <a href="mailto:SunnybrookeCondo@gmail.com">SunnybrookeCondo@gmail.com</a></p><p style="margin-top:0.5rem;"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.09 6.09l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 207-604-2530</p><p style="margin-top:0.75rem;color:var(--text-muted);font-size:0.88rem;">PO Box 1367<br>Dover, NH, 03821</p></div>
+<div class="info-block"><h2>Send a Message</h2><form action="https://formspree.io/f/mreneedb" method="POST"><input type="text" name="name" placeholder="Your Name" required style="width:100%;padding:0.6rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;margin-bottom:0.75rem;"/><input type="email" name="email" placeholder="Your Email" required style="width:100%;padding:0.6rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;margin-bottom:0.75rem;"/><textarea name="message" rows="4" placeholder="Your message..." required style="width:100%;padding:0.6rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;margin-bottom:0.75rem;resize:vertical;"></textarea><button type="submit" style="background:var(--primary);color:#fff;border:none;border-radius:6px;padding:0.65rem 2rem;font-size:0.9rem;font-weight:600;cursor:pointer;">Send Message</button></form></div>
+<div class="info-block"><h2>Follow Us on Facebook</h2><a href="https://www.facebook.com/groups/1813354662963180/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;color:var(--primary);font-weight:600;text-decoration:none;"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Sunnybrooke Condo Association on Facebook</a></div>
+</div></main>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand-wrap"><span class="footer-brand"><a href="https://www.facebook.com/profile.php?id=61590887171758" target="_blank" rel="noopener" style="display:inline-block;line-height:0;"><img src="brandlogo.png" alt="logo" style="height:22px;width:auto;vertical-align:middle;opacity:0.75;"/></a></span></div>
+    <p><strong>Sunnybrooke Condo Association</strong> &middot; PO Box 1367, Dover, NH, 03821 &middot; <a href="mailto:SunnybrookeCondo@gmail.com">SunnybrookeCondo@gmail.com</a></p>
+    <div class="footer-brand-spacer"></div>
+  </div>
+</footer>
+</body>
+</html>
