@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Worker Test</title>
+</head>
+<body>
+
+<h2>Cloudflare Worker Test</h2>
+
+<input id="email" type="email" placeholder="Your email">
+<br><br>
+
+<button onclick="send()">Send Test</button>
+
+<pre id="result"></pre>
+
+<script>
+async function send() {
+    const result = document.getElementById("result");
+
+    try {
+        const response = await fetch(
+            "https://sunnybrooke-forms.sunnybrookeca.workers.dev",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    formType: "contact",
+                    email: document.getElementById("email").value,
+                    message: "This is a Cloudflare Worker test."
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        result.textContent = JSON.stringify(data, null, 2);
+
+    } catch (err) {
+        result.textContent = err.toString();
+    }
+}
+</script>
+
+</body>
+</html>
