@@ -81,6 +81,7 @@ main{flex:1}
 .vendor-rating-label{color:var(--text-muted);font-size:0.78rem}
 .vendor-rating-date{color:var(--text-muted);font-size:0.72rem;margin-left:0.3rem}
 .vendor-rating-empty{color:var(--text-muted);font-style:italic}
+.vendor-referred-by{font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;font-style:italic}
 .vendor-rate-widget{margin-top:0.65rem;padding-top:0.65rem;border-top:1px solid var(--border);font-size:0.8rem;display:flex;align-items:center;flex-wrap:wrap;gap:0.15rem;}
 .vendor-rate-label{color:var(--text-muted);margin-right:0.3rem}
 .vendor-rate-star{cursor:pointer;color:#e8a33d;font-size:1.1rem;line-height:1;transition:transform 0.1s}
