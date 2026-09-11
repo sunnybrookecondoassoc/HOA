@@ -35,6 +35,12 @@
       alert("To install: open your browser menu and choose \"Install app\" or \"Add to Home Screen\".");
     }
   }
+  fetch("" + "events/events.json").then(function(r){return r.json();}).then(function(events){
+    var now = new Date();
+    var liveCount = (events||[]).filter(function(ev){ return !ev.end || new Date(ev.end) >= now; }).length;
+    var badge = document.getElementById("events-nav-badge");
+    if (badge && liveCount > 0) { badge.textContent = liveCount; badge.style.display = "inline-block"; }
+  }).catch(function(){});
 </script>
 <nav>
   <div class="nav-inner">
@@ -50,7 +56,7 @@
       <li><a href="lenders.html" class="active">Lenders &amp; Realtors</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="residents.html">Residents</a></li>
-      <li><a href="events.html">Events</a></li>
+      <li><a href="events.html">Events <span id="events-nav-badge" style="display:none;background:#c0392b;color:#fff;border-radius:999px;font-size:0.72rem;line-height:1;padding:0.2em 0.5em;margin-left:0.35em;vertical-align:middle;"></span></a></li>
     </ul>
   </div>
 </nav>
