@@ -35,6 +35,12 @@
       alert("To install: open your browser menu and choose \"Install app\" or \"Add to Home Screen\".");
     }
   }
+  fetch("../" + "events/events.json").then(function(r){return r.json();}).then(function(events){
+    var now = new Date();
+    var liveCount = (events||[]).filter(function(ev){ return !ev.end || new Date(ev.end) >= now; }).length;
+    var badge = document.getElementById("events-nav-badge");
+    if (badge && liveCount > 0) { badge.textContent = liveCount; badge.style.display = "inline-block"; }
+  }).catch(function(){});
 </script>
 <nav>
   <div class="nav-inner">
@@ -50,7 +56,7 @@
       <li><a href="../lenders.html">Lenders &amp; Realtors</a></li>
       <li><a href="../contact.html">Contact</a></li>
       <li><a href="../residents.html">Residents</a></li>
-      <li><a href="../events.html">Events</a></li>
+      <li><a href="../events.html">Events <span id="events-nav-badge" style="display:none;background:#c0392b;color:#fff;border-radius:999px;font-size:0.72rem;line-height:1;padding:0.2em 0.5em;margin-left:0.35em;vertical-align:middle;"></span></a></li>
     </ul>
   </div>
 </nav>
@@ -58,18 +64,17 @@
 <div class="container" style="max-width:760px;">
 <div style="position:relative;width:100%;min-height:220px;max-height:420px;overflow:hidden;border-radius:10px;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;"><img src="../images/happy-cute.gif" alt="Sunnybrooke Condo Association Block Party!" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"/><div style="position:absolute;inset:0;background:rgba(0,0,0,0.06);"></div><h1 style="position:relative;z-index:1;color:#fff;margin:0;padding:1.25rem 1.5rem;text-align:center;text-shadow:0 2px 10px rgba(0,0,0,0.6);">Sunnybrooke Condo Association Block Party!</h1></div>
 
-<div style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.25rem;"><div>&#128197; Fri, Sep 11, 2026 · 11:45 PM</div><div style="margin-top:0.3rem;">&#128100; Hosted by Tammy Crossman</div><div style="margin-top:0.3rem;">&#128205; 15 Morgan Way, Dover NH 03820</div></div>
+<div style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.25rem;"><div>&#128197; Fri, Sep 11, 2026 · 11:45 PM – Sat, Sep 12, 2026 · 12:00 AM</div><div style="margin-top:0.3rem;">&#128100; Hosted by Tammy Crossman</div><div style="margin-top:0.3rem;">&#128205; 15 Morgan Way, Dover NH 03820</div></div>
 <div class="print-hide" style="margin-bottom:1.5rem;"><a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sunnybrooke%20Condo%20Association%20Block%20Party!&dates=20260911T234500/20260912T000000&details=Music%20%F0%9F%8E%B6%20Food%20%F0%9F%8D%B2%20Fun%20%F0%9F%8E%89%0APot%20Luck%20-%20Bring%20a%20dish%20to%20share%0ABYOB%20%26%20Bring%20a%20chair&location=15%20Morgan%20Way%2C%20Dover%20NH%2003820" target="_blank" rel="noopener" class="btn-secondary print-hide" style="display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;padding:0.5rem 0.9rem;border-radius:6px;margin-right:0.6rem;">&#128197; Add to Google Calendar</a><button onclick="window.print()" class="btn-secondary" style="padding:0.5rem 0.9rem;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;">&#128424; Print / Save as PDF</button></div>
-<div class="info-block">Music 🎶 Food 🍲 Fun 🎉
-Pot Luck - Bring a dish to share
-BYOB & Bring a chair</div>
+<div class="info-block">Music 🎶 Food 🍲 Fun 🎉<br>Pot Luck - Bring a dish to share<br>BYOB & Bring a chair</div>
 <div class="info-block" style="margin-top:0.75rem;"><strong>RSVP:</strong> Contact Tammy Crossman Text/Call 603-749-2197</div>
-<div class="print-hide" style="margin-top:1.25rem;border-radius:8px;overflow:hidden;"><iframe src="https://www.google.com/maps?q=15%20Morgan%20Way%2C%20Dover%20NH%2003820&output=embed" width="100%" height="280" style="border:0;" loading="lazy"></iframe></div><div class="print-only-block" style="display:none;">15 Morgan Way, Dover NH 03820</div>
+<div style="margin-top:0.75rem;font-style:italic;color:var(--text-muted);">Rain Date: Sat, Oct 3, 2026</div>
+<div class="print-hide" style="margin-top:1.25rem;border-radius:8px;overflow:hidden;"><iframe src="https://www.google.com/maps?q=15%20Morgan%20Way%2C%20Dover%20NH%2003820&output=embed" width="100%" height="280" style="border:0;" loading="lazy"></iframe></div><div class="print-hide" style="margin-top:0.4rem;"><a href="https://www.google.com/maps?q=15%20Morgan%20Way%2C%20Dover%20NH%2003820" target="_blank" rel="noopener" style="font-size:0.85rem;">View on Google Maps &rarr;</a></div><div class="print-only-block" style="display:none;">15 Morgan Way, Dover NH 03820</div>
 </div></main>
 <style>@media print { .print-hide, nav, footer { display:none !important; } .print-only-block { display:block !important; color:var(--text-muted); } body { padding:0; } }</style>
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand-wrap"><span class="footer-brand"><a href="https://www.facebook.com/profile.php?id=61590887171758" target="_blank" rel="noopener" style="display:inline-block;line-height:0;"><img src="brandlogo.png" alt="logo" style="height:22px;width:auto;vertical-align:middle;opacity:0.75;"/></a></span></div>
+    <div class="footer-brand-wrap"><span class="footer-brand"><a href="https://www.facebook.com/profile.php?id=61590887171758" target="_blank" rel="noopener" style="display:inline-block;line-height:0;"><img src="../brandlogo.png" alt="logo" style="height:22px;width:auto;vertical-align:middle;opacity:0.75;"/></a></span></div>
     <p><strong>Sunnybrooke Condo Association</strong> &middot; PO Box 1367, Dover, NH, 03821 &middot; <a href="mailto:SunnybrookeCondo@gmail.com">SunnybrookeCondo@gmail.com</a></p>
     <div class="footer-brand-spacer"></div>
   </div>
