@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Events - Sunnybrooke Condo Association</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="icon" href="icon-192.png" type="image/png"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Sunnybrooke Condo Association"/>
+<script data-goatcounter="https://sunnybrookecondos.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7262d9d7b1e74dd9ba6e4d7131dce18d"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+
+<script>
+  function toggleMenu(){var nl=document.getElementById("nav-links");if(nl)nl.classList.toggle("open");}
+  var deferredInstallPrompt=null;
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
+  function installApp(){
+    var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+    if(isIOS){
+      alert("To install: tap the Share icon, then \"Add to Home Screen\".");
+      return;
+    }
+    if(deferredInstallPrompt){
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then(function(){deferredInstallPrompt=null;});
+    } else {
+      alert("To install: open your browser menu and choose \"Install app\" or \"Add to Home Screen\".");
+    }
+  }
+</script>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand-row">
+      <a class="nav-brand" href="index.html">Sunnybrooke Condo Association</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li class="nav-install-item"><a href="#" onclick="installApp();return false;">Install The SCA App!</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="documents.html">Documents</a></li>
+      <li><a href="vendors.html">Preferred Vendors</a></li>
+      <li><a href="lenders.html">Lenders &amp; Realtors</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="residents.html">Residents</a></li>
+      <li><a href="events.html" class="active">Events</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+<div class="page-header"><h1>Community Events</h1><p>What’s coming up around Sunnybrooke Condo Association</p></div>
+<div class="container" style="max-width:860px;">
+<div id="events-container"><div class="info-block"><p style="color:var(--text-muted);">Loading events…</p></div></div>
+</div></main>
+<script>
+function formatEventDate(iso){
+  var dt = new Date(iso);
+  if (isNaN(dt.getTime())) return "";
+  var days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var h=dt.getHours(), m=dt.getMinutes(), ap=h>=12?"PM":"AM", h12=h%12||12;
+  return days[dt.getDay()]+", "+months[dt.getMonth()]+" "+dt.getDate()+", "+dt.getFullYear()+" \u00b7 "+h12+":"+(m<10?"0":"")+m+" "+ap;
+}
+fetch("events/events.json").then(function(r){return r.json();}).then(function(events){
+  var now = new Date();
+  var live = events.filter(function(ev){ return !ev.end || new Date(ev.end) >= now; });
+  var dated = live.filter(function(ev){ return !!ev.start; });
+  var undated = live.filter(function(ev){ return !ev.start; });
+  dated.sort(function(a,b){ return new Date(a.start) - new Date(b.start); });
+  var ordered = dated.concat(undated);
+  var el = document.getElementById("events-container");
+  if (!ordered.length) { el.innerHTML = '<div class="info-block"><p style="color:var(--text-muted);">No events scheduled yet.</p></div>'; return; }
+  el.innerHTML = ordered.map(function(ev){
+    var dateStr = ev.start ? formatEventDate(ev.start) : (ev.startText || "");
+    return '<a class="info-block" href="events/'+ev.id+'.html" style="display:block;text-decoration:none;color:inherit;margin-bottom:0.75rem;">'
+      + '<div style="font-size:0.8rem;color:var(--primary);font-weight:600;">'+dateStr+'</div>'
+      + '<h2 style="margin:0.25rem 0 0;">'+ev.title+'</h2>'
+      + '</a>';
+  }).join("");
+}).catch(function(){
+  document.getElementById("events-container").innerHTML = '<div class="info-block"><p style="color:var(--text-muted);">Could not load events right now.</p></div>';
+});
+</script>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand-wrap"><span class="footer-brand"><a href="https://www.facebook.com/profile.php?id=61590887171758" target="_blank" rel="noopener" style="display:inline-block;line-height:0;"><img src="brandlogo.png" alt="logo" style="height:22px;width:auto;vertical-align:middle;opacity:0.75;"/></a></span></div>
+    <p><strong>Sunnybrooke Condo Association</strong> &middot; PO Box 1367, Dover, NH, 03821 &middot; <a href="mailto:SunnybrookeCondo@gmail.com">SunnybrookeCondo@gmail.com</a></p>
+    <div class="footer-brand-spacer"></div>
+  </div>
+</footer>
+</body>
+</html>
