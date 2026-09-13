@@ -35,7 +35,7 @@
       alert("To install: open your browser menu and choose \"Install app\" or \"Add to Home Screen\".");
     }
   }
-  fetch("" + "events/events.json").then(function(r){return r.json();}).then(function(events){
+  fetch("" + "events/events.json", {cache: "no-store"}).then(function(r){return r.json();}).then(function(events){
     var now = new Date();
     var liveCount = (events||[]).filter(function(ev){ return !ev.end || new Date(ev.end) >= now; }).length;
     var badge = document.getElementById("events-nav-badge");
@@ -73,7 +73,7 @@ function formatEventDate(iso){
   var h=dt.getHours(), m=dt.getMinutes(), ap=h>=12?"PM":"AM", h12=h%12||12;
   return days[dt.getDay()]+", "+months[dt.getMonth()]+" "+dt.getDate()+", "+dt.getFullYear()+" \u00b7 "+h12+":"+(m<10?"0":"")+m+" "+ap;
 }
-fetch("events/events.json").then(function(r){return r.json();}).then(function(events){
+fetch("events/events.json", {cache: "no-store"}).then(function(r){return r.json();}).then(function(events){
   var now = new Date();
   var live = events.filter(function(ev){ return !ev.end || new Date(ev.end) >= now; });
   var dated = live.filter(function(ev){ return !!ev.start; });
