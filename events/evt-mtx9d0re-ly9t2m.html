@@ -66,12 +66,64 @@
 
 <div style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.25rem;"><div>&#128197; Sat, Sep 26, 2026 · 3:00 PM – 8:00 PM</div><div style="margin-top:0.3rem;">&#128100; Hosted by Tammy Crossman</div><div style="margin-top:0.3rem;">&#128205; 15 Morgan Way, Dover NH 03820</div></div>
 <div class="print-hide" style="margin-bottom:1.5rem;"><a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%F0%9F%8E%89Sunnybrooke%20Condo%20Association%20Block%20Party!%F0%9F%8E%88&dates=20260926T150000/20260926T200000&details=Music%20%F0%9F%8E%B6%20Food%20%F0%9F%8D%B2%20Fun%20%F0%9F%8E%89%0APot%20Luck%20-%20Bring%20a%20dish%20to%20share%0ABYOB%20%26%20bring%20a%20chair!&location=15%20Morgan%20Way%2C%20Dover%20NH%2003820" target="_blank" rel="noopener" class="btn-secondary print-hide" style="display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;padding:0.5rem 0.9rem;border-radius:6px;margin-right:0.6rem;">&#128197; Add to Google Calendar</a><button onclick="window.print()" class="btn-secondary" style="padding:0.5rem 0.9rem;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;">&#128424; Print / Save as PDF</button></div>
+<div class="print-hide" style="margin-bottom:1.5rem;"><div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.4rem;">Intended for Tammy Crossman (the host of this event) to use — if that’s not you, please don’t click this. Everyone getting their own separate invite from a different sender is a real, avoidable annoyance.</div><button onclick="openInviteFlow()" class="btn-secondary" style="padding:0.5rem 0.9rem;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;">&#128231; Invite Residents to This Event</button></div>
+<div id="invite-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;padding:1rem;"><div style="background:#fff;border-radius:10px;max-width:480px;width:100%;padding:1.5rem;max-height:85vh;overflow-y:auto;"><div id="invite-step-password"><h3 style="margin-top:0;">Invite Residents</h3><p style="font-size:0.85rem;color:var(--text-muted);">Enter the temporary password sent to you for this event. This never leaves your own browser.</p><div style="display:flex;gap:0.4rem;align-items:center;margin-bottom:0.5rem;"><input type="password" id="invite-password-input" style="flex:1;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;box-sizing:border-box;" placeholder="Temporary event password"/><button type="button" onclick="var el=document.getElementById('invite-password-input');var showing=el.type==='text';el.type=showing?'password':'text';this.innerHTML=showing?'&#128065;':'&#128584;';" title="Click to show/hide" style="background:none;border:none;cursor:pointer;font-size:1.1rem;padding:0.3rem;line-height:1;flex-shrink:0;">&#128065;</button></div><div id="invite-password-error" style="display:none;color:#c0392b;font-size:0.82rem;margin-bottom:0.5rem;">That password didn’t work. If you’re the host of this event, check your email for a temporary password we sent you specifically for this — that’s what’s needed here, not the community password.</div><div style="display:flex;gap:0.6rem;"><button onclick="submitInvitePassword()" style="flex:1;background:var(--primary);color:#fff;border:none;border-radius:6px;padding:0.6rem;cursor:pointer;font-weight:600;">Unlock</button><button onclick="closeInviteFlow()" style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.6rem 1rem;cursor:pointer;">Cancel</button></div></div><div id="invite-step-result" style="display:none;"></div></div></div>
 <div class="info-block">Music 🎶 Food 🍲 Fun 🎉<br>Pot Luck - Bring a dish to share<br>BYOB & bring a chair!</div>
 <div class="info-block" style="margin-top:0.75rem;"><strong>RSVP:</strong> Contact - Tammy Crossman Text/Call 603-749-2197</div>
 <div style="margin-top:0.75rem;font-style:italic;color:var(--text-muted);">Rain Date: Sat, Oct 3, 2026</div>
 <div style="margin-top:0.75rem;font-size:0.85rem;color:var(--text-muted);">Submitted by: Tammy Crossman (Resident)</div>
 <div class="print-hide" style="margin-top:1.25rem;border-radius:8px;overflow:hidden;"><iframe src="https://www.google.com/maps?q=15%20Morgan%20Way%2C%20Dover%20NH%2003820&output=embed" width="100%" height="280" style="border:0;" loading="lazy"></iframe></div><div class="print-hide" style="margin-top:0.4rem;"><a href="https://www.google.com/maps?q=15%20Morgan%20Way%2C%20Dover%20NH%2003820" target="_blank" rel="noopener" style="font-size:0.85rem;">View on Google Maps &rarr;</a></div><div class="print-only-block" style="display:none;">15 Morgan Way, Dover NH 03820</div>
 </div></main>
+<script>
+var INVITE_SUBJECT = "You’re Invited: 🎉Sunnybrooke Condo Association Block Party!🎈";
+var INVITE_BODY = "You’re invited to 🎉Sunnybrooke Condo Association Block Party!🎈!\n\nWhen: Sat, Sep 26, 2026 · 3:00 PM – 8:00 PM\nWhere: 15 Morgan Way, Dover NH 03820\n\nMusic 🎶 Food 🍲 Fun 🎉\nPot Luck - Bring a dish to share\nBYOB & bring a chair!\n\nRSVP: Contact - Tammy Crossman Text/Call 603-749-2197\n\nMore details: https://sunnybrookecondos.com/events/evt-mtx9d0re-ly9t2m.html";
+var INVITE_EMAILS_ENC = "DSO1rWbwbFA8WBM6ZC7D6g==:lg+UPyZDul+WMi0i:+0vn2pFFvGz/+Xfyqcm1+Vt+m2lIVLCsfWIvqGy1G9rTLqY65m0pIVrdHH9on6pto6LK+qCnhYfQdiC94tZDdqXqEhVEix2uPnb/c/aReHa4y/dag4b2KoxaIG3xMr3vQt8WtYam+laiBTOLyl0uUzT8faeRK3HIlkx9KK4IxO/EwRbS74aqmHFYKmWuI0BqSD0TOo+4QJJ8LwH3/82giuFcEJswFiNowkDUvGRhbxnuUhjI3/Q27X5Ly6YubX2HnVC4SaktNyLjO5W3zvxp6IoGYZO3xtgO+fVOcVczBATbquHyuAntV+pIYscAFcmExHl/TfdyfVALmjWUnNPj+MI9eI711WMYY7+i1vraYYSygGF7lDjiB5JaZJzH6W2U1mETuRaWRdfw2uZF5jRGxC6611OZ3+IOa+uXCzG33drC5o6RbyAQnk8JClc+UfPvukV+zRq0w2IOlCN7EoBEUfEWBleMVRl7vwaXEQpOOft8zT6FVjh1Z6ijg5aB1q6eS/xJ4wopI0EJSm6N59NYCkJ1HY09iUk/WTsCQzG9pxDVrgeFWuBQvha+H/IvX4MKzlGQ8Uf46KExusq6gmeE8dpeYryAzr3fUeagEKryk+TUKLBbmpxYuZrLLCZ0EEwwUdrrHjfNrhW4h0mG+lcS4Yqxop0s0Y8jmA9l5W8IiFXACK8+6tgOik97uQM6D9rVEY+IWHigImIfpc3FTttlKcEsFV6sQ4iz/1F2weS7jg/wsfP6m52Piakc/SFf1ZeYwfthKAv+5SiIZeZu4pKWpLYprXQ8UrVaR02wcspbuj6A8BjkaDp38X8eThnCqPG4nW2pWkIuQnYPFi34FBF66YDM+hIvHkysC6BWUKh/2m8DUUPM124hVBxvwo5LNg2SMzwLtfnD7v8y00hYGHJhdLz90mFQxKoXoiZZrjr32MA8gx3vqP5JzaHiNPW4VcKGtTp6tcbftRQ+aijL4Lg4uhg+i2d5pDeKR/IusNoZCsZn4CA42u7EAEeS+p6MriPdabixMPQMrGaKJoirVCOTLodt9lhonvBflKEzvLSWkR9O0yKCQdePtp/Fc9hcIyAiWrZu21UMA9FiKvHXtJ1DFpn8rsxQPnbM4AKncbdVypX6SLrJYKQWLGCk8pPz2kTl3w5Ssjw8QtHaMIVOO57FZ0SibAKoNFKspqENlVG6ZuL2cUcrkNnuTZonHTp9G/enkLy1KKwGWow1IMAmLVfIx1xZH0A2Fr4uLPJLfWJxw3IfCxZVraf6Sio9GMZkatA6YEy5UZJlpxwNmx/kPkDClQm6U46oP/CAoyIkFXGdJAoPRq1EZwdu2tmHC+szhG7RNdcXMRWQZFyKuekTPlXLXeRuu4m133Dz8wZghY2e/hvzF5yZ5WfrIL6fKEuH2wW28nmQ95jY9hHfjGGKjXIu+ucl1LDKoiDmoSCqSLyWi9dfCVV6Ng2VCaC+MmHFwxd1l+vWgxCJvZIZm9HzWm7W8dLndmf+75qOM7Ximp8NkZQKW4wr0iY5/7Wf81oamoBio5AdKN35/Hw5xdEdbkEnSKr1GQpnczteTVUOAZzWiYtd4b1HfuuF7LSZ";
+function openInviteFlow(){
+  document.getElementById("invite-modal-overlay").style.display="flex";
+  document.getElementById("invite-step-password").style.display="block";
+  document.getElementById("invite-step-result").style.display="none";
+  document.getElementById("invite-password-error").style.display="none";
+  document.getElementById("invite-password-input").value="";
+  document.getElementById("invite-password-input").focus();
+}
+function closeInviteFlow(){ document.getElementById("invite-modal-overlay").style.display="none"; }
+async function submitInvitePassword(){
+  var pw=document.getElementById("invite-password-input").value;
+  var errEl=document.getElementById("invite-password-error"); errEl.style.display="none";
+  if(!pw) return;
+  try{
+    var parts=INVITE_EMAILS_ENC.trim().split(":");
+    if(parts.length!==3) throw new Error("bad format");
+    var b64ToU8=function(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0);});};
+    var salt=b64ToU8(parts[0]),iv=b64ToU8(parts[1]),ct=b64ToU8(parts[2]);
+    var km=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),{name:"PBKDF2"},false,["deriveKey"]);
+    var key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:200000,hash:"SHA-256"},km,{name:"AES-GCM",length:256},false,["decrypt"]);
+    var plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:iv},key,ct);
+    var emails=JSON.parse(new TextDecoder().decode(plain));
+    if(!emails||!emails.length) throw new Error("no emails found");
+    showInviteResult(emails);
+  }catch(e){
+    errEl.style.display="block";
+  }
+}
+function showInviteResult(emails){
+  document.getElementById("invite-step-password").style.display="none";
+  var resultEl=document.getElementById("invite-step-result");
+  resultEl.style.display="block";
+  var bcc=emails.join(",");
+  window._inviteBcc=bcc;
+  var fitsDirectLink=(bcc.length+INVITE_SUBJECT.length)<=1500;
+  var mailtoLink="mailto:?bcc="+encodeURIComponent(bcc)+"&subject="+encodeURIComponent(INVITE_SUBJECT);
+  var countLine="Found "+emails.length+" resident email"+(emails.length===1?"":"s")+".";
+  if(fitsDirectLink){
+    resultEl.innerHTML='<h3 style="margin-top:0;">Ready to Invite</h3><p style="font-size:0.85rem;color:var(--text-muted);">'+countLine+' Copy the invite text below first \u2014 you\'ll paste it into the email body once your email app opens, already addressed with everyone in BCC and the subject filled in.</p><button onclick="copyInviteText()" style="width:100%;background:var(--primary);color:#fff;border:none;border-radius:6px;padding:0.6rem;cursor:pointer;font-weight:600;margin-bottom:0.6rem;">Copy Invite Text</button><a href="'+mailtoLink+'" style="display:block;text-align:center;background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.6rem;text-decoration:none;color:inherit;font-weight:600;margin-bottom:0.6rem;box-sizing:border-box;">Open Email (Recipients + Subject Filled)</a><button onclick="closeInviteFlow()" style="width:100%;background:none;border:none;color:var(--text-muted);cursor:pointer;padding:0.4rem;">Close</button>';
+  }else{
+    resultEl.innerHTML='<h3 style="margin-top:0;">Ready to Invite</h3><p style="font-size:0.85rem;color:var(--text-muted);">'+countLine+' That\'s too many to fit reliably in a direct email link, so copy these two pieces and paste them into your email app by hand.</p><button onclick="copyInviteEmails()" style="width:100%;background:var(--primary);color:#fff;border:none;border-radius:6px;padding:0.6rem;cursor:pointer;font-weight:600;margin-bottom:0.6rem;">Copy All Emails (for BCC)</button><button onclick="copyInviteText()" style="width:100%;background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.6rem;cursor:pointer;font-weight:600;margin-bottom:0.6rem;">Copy Invite Text (for body)</button><button onclick="closeInviteFlow()" style="width:100%;background:none;border:none;color:var(--text-muted);cursor:pointer;padding:0.4rem;">Close</button>';
+  }
+}
+function copyInviteEmails(){ navigator.clipboard.writeText(window._inviteBcc).then(function(){alert("Emails copied \u2014 paste them into your email app's BCC field.");}); }
+function copyInviteText(){ navigator.clipboard.writeText(INVITE_BODY).then(function(){alert("Invite text copied \u2014 paste it into your email app's message body.");}); }
+</script>
 <style>@media print { .print-hide, nav, footer { display:none !important; } .print-only-block { display:block !important; color:var(--text-muted); } body { padding:0; } }</style>
 <footer>
   <div class="footer-inner">
