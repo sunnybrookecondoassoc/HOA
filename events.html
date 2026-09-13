@@ -64,6 +64,7 @@
 <div class="page-header"><h1>Community Events</h1><p>What’s coming up around Sunnybrooke Condo Association</p></div>
 <div class="container" style="max-width:860px;">
 <div id="events-container"><div class="info-block"><p style="color:var(--text-muted);">Loading events…</p></div></div>
+<div id="event-submit-wrap" style="margin-top:2rem;"><div class="info-block"><h2>Have an Upcoming Community Event?</h2><p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1.25rem;">A board meeting, block party, or anything else worth sharing — submit it here and we’ll get it posted. Fields marked <span style="color:#c0392b;">*</span> are required.</p><div id="event-submit-success" style="display:none;background:var(--forest-light,#eef5ee);color:var(--primary);border:1px solid var(--primary);border-radius:6px;padding:0.85rem 1rem;font-size:0.9rem;margin-bottom:1rem;">Thanks! Your event details have been sent to the board for review.</div><div id="event-submit-error" style="display:none;color:#c0392b;font-size:0.85rem;margin-bottom:1rem;"></div><form id="event-submit-form" style="display:flex;flex-direction:column;gap:0.85rem;"><div style="border-bottom:1px solid var(--border);padding-bottom:0.85rem;margin-bottom:0.15rem;"><label for="esub-role" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">I am a… <span style="color:#c0392b;">*</span></label><select id="esub-role" name="submitter_role" required style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;background:#fff;"><option value="">Select one…</option><option value="Resident">Resident</option><option value="Board Member">Board Member</option><option value="Property Management">Property Management</option></select></div><div><label for="esub-name" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Your Name <span style="color:#c0392b;">*</span></label><input id="esub-name" type="text" name="submitter_name" required style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div><label for="esub-contact" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Your Email or Phone <span style="color:#c0392b;">*</span></label><input id="esub-contact" type="text" name="submitter_contact" placeholder="So the board can follow up if needed" required style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div><label for="esub-title" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Event Name <span style="color:#c0392b;">*</span></label><input id="esub-title" type="text" name="event_title" placeholder="e.g. Summer Block Party" required style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div><label for="esub-host" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Hosted By <span class="opt">(optional)</span></label><input id="esub-host" type="text" name="event_host" placeholder="e.g. Social Committee" style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div class="form-row" style="display:flex;gap:0.75rem;"><div style="flex:1;"><label for="esub-date" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Date <span style="color:#c0392b;">*</span></label><input id="esub-date" type="date" name="event_date" required style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div style="flex:1;"><label for="esub-start" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Start Time <span style="color:#c0392b;">*</span></label><input id="esub-start" type="time" name="start_time" required style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div style="flex:1;"><label for="esub-end" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">End Time <span class="opt">(optional)</span></label><input id="esub-end" type="time" name="end_time" style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div></div><div><label for="esub-location" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Location <span style="color:#c0392b;">*</span></label><input id="esub-location" type="text" name="event_location" placeholder="e.g. Clubhouse" required style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div><label for="esub-desc" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Description <span class="opt">(optional)</span></label><textarea id="esub-desc" name="event_description" rows="3" placeholder="What should people know?" style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;resize:vertical;"></textarea></div><div><label for="esub-rsvp" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">RSVP Contact <span class="opt">(optional)</span></label><input id="esub-rsvp" type="text" name="rsvp_contact" style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div><label for="esub-rain" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Rain Date <span class="opt">(optional)</span></label><input id="esub-rain" type="date" name="rain_date" style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><input type="text" id="esub-hp" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;" /><div><button type="submit" id="esub-submit-btn" disabled style="background:var(--primary);color:#fff;border:none;border-radius:7px;padding:0.7rem 2rem;font-size:0.9rem;font-weight:600;cursor:not-allowed;opacity:0.5;font-family:inherit;">Submit Event</button></div></form></div></div>
 </div></main>
 <script>
 function formatEventDate(iso){
@@ -91,6 +92,54 @@ fetch("events/events.json", {cache: "no-store"}).then(function(r){return r.json(
   }).join("");
 }).catch(function(){
   document.getElementById("events-container").innerHTML = '<div class="info-block"><p style="color:var(--text-muted);">Could not load events right now.</p></div>';
+});
+var EVENT_SUBMIT_ENDPOINT="https://sunnybrooke-forms-v2.sunnybrookeca.workers.dev";
+function validateEventSubmitForm(){
+  var ids=["esub-role","esub-name","esub-contact","esub-title","esub-date","esub-start","esub-location"];
+  var ok=ids.every(function(id){var el=document.getElementById(id);return el&&el.value.trim();});
+  var btn=document.getElementById("esub-submit-btn");
+  if(btn){btn.disabled=!ok;btn.style.opacity=ok?"1":"0.5";btn.style.cursor=ok?"pointer":"not-allowed";}
+  return ok;
+}
+async function submitEventSubmitForm(e){
+  e.preventDefault();
+  if(!validateEventSubmitForm()){alert("Please fill in all the required fields before submitting.");return;}
+  var errEl=document.getElementById("event-submit-error");var okEl=document.getElementById("event-submit-success");
+  errEl.style.display="none";
+  var btn=document.getElementById("esub-submit-btn");btn.disabled=true;btn.textContent="Sending\u2026";
+  var payload={formType:"eventSubmission",
+    submitter_role:document.getElementById("esub-role").value.trim(),
+    submitter_name:document.getElementById("esub-name").value.trim(),
+    submitter_contact:document.getElementById("esub-contact").value.trim(),
+    event_title:document.getElementById("esub-title").value.trim(),
+    event_host:document.getElementById("esub-host").value.trim(),
+    event_date:document.getElementById("esub-date").value.trim(),
+    start_time:document.getElementById("esub-start").value.trim(),
+    end_time:document.getElementById("esub-end").value.trim(),
+    event_location:document.getElementById("esub-location").value.trim(),
+    event_description:document.getElementById("esub-desc").value.trim(),
+    rsvp_contact:document.getElementById("esub-rsvp").value.trim(),
+    rain_date:document.getElementById("esub-rain").value.trim(),
+    _honeypot:document.getElementById("esub-hp").value
+  };
+  try{
+    var res=await fetch(EVENT_SUBMIT_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    var json=await res.json().catch(function(){return{};});
+    if(res.ok&&json.ok){
+      document.getElementById("event-submit-form").style.display="none";
+      okEl.style.display="block";
+    }else{
+      errEl.textContent="Something went wrong: "+(json&&json.error?json.error:(json&&json.errors&&json.errors.length?json.errors.map(function(e){return e.message;}).join(", "):("HTTP "+res.status)))+". Please try again, or contact the board directly.";errEl.style.display="block";
+      btn.disabled=false;btn.textContent="Submit Event";
+    }
+  }catch(e2){
+    errEl.textContent="Something went wrong: "+(e2&&e2.message?e2.message:"network error")+". Please try again, or contact the board directly.";errEl.style.display="block";
+    btn.disabled=false;btn.textContent="Submit Event";
+  }
+}
+document.addEventListener("DOMContentLoaded",function(){
+  var f=document.getElementById("event-submit-form");
+  if(f){f.addEventListener("input",validateEventSubmitForm);f.addEventListener("submit",submitEventSubmitForm);validateEventSubmitForm();}
 });
 </script>
 <footer>
