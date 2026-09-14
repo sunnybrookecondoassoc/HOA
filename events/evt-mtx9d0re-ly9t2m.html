@@ -40,6 +40,8 @@
     var liveCount = (events||[]).filter(function(ev){ return !ev.end || new Date(ev.end) >= now; }).length;
     var badge = document.getElementById("events-nav-badge");
     if (badge && liveCount > 0) { badge.textContent = liveCount; badge.style.display = "inline-block"; }
+    var cardBadge = document.getElementById("events-card-badge");
+    if (cardBadge && liveCount > 0) { cardBadge.textContent = liveCount; cardBadge.style.display = "inline-block"; }
   }).catch(function(){});
 </script>
 <nav>
