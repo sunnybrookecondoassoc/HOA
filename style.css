@@ -31,8 +31,8 @@ body.no-stripe .nav-brand-row{border-bottom:none!important}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:11px;flex-shrink:0}
 .hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
 .hero{background:#273c68;position:relative;overflow:hidden}
-.hero-img{width:100%;aspect-ratio:2.5;object-fit:cover;object-position:50% 50%;display:block;opacity:0.7}
-.hero-img-placeholder{width:100%;aspect-ratio:2.5;background:#273c68;display:block}
+.hero-img{width:100%;aspect-ratio:3.5;object-fit:cover;object-position:50% 50%;display:block;opacity:0.7}
+.hero-img-placeholder{width:100%;aspect-ratio:3.5;background:#273c68;display:block}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.25) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
 .hero-badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.35);color:rgba(255,255,255,0.9);font-size:0.72rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;margin-bottom:0.9rem}
 .hero h1{font-family:Georgia,serif;font-size:clamp(1.9rem,5vw,3rem);color:#fff;line-height:1.15;margin-bottom:0.75rem;text-shadow:0 2px 8px rgba(0,0,0,0.4)}
@@ -157,4 +157,4 @@ footer a,footer a:visited,footer a:link{color:rgba(255,255,255,0.8);text-decorat
   .update-row-grid{grid-template-columns:1fr;gap:0.4rem}
   .update-row-grid select,.update-row-grid input{width:100%;box-sizing:border-box}
 }
-/* WIZARD-DATA:{"version":1,"file":"style.css","data":{"theme":"gradient","tweaks":{"heroOpacity":0.7,"overlayTop":0.15,"overlayBottom":0.25,"heroAspectRatio":2.5,"cardRadius":10}}} */
+/* WIZARD-DATA:{"version":1,"file":"style.css","data":{"theme":"gradient","tweaks":{"heroOpacity":0.7,"overlayTop":0.15,"overlayBottom":0.25,"heroAspectRatio":3.5,"cardRadius":10}}} */
