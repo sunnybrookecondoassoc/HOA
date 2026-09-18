@@ -13,9 +13,13 @@
     "heroImage": "images/happy-cute.gif",
     "heroOverlayOpacity": 0,
     "hideTitleOnHero": false,
-    "description": "Music 🎶 Food 🍲 Fun 🎉\nPot Luck - Bring a dish to share\nBYOB & bring a chair!",
+    "description": "Music 🎶 Food 🍲 Fun 🎉\nPot Luck - Bring a dish to share.\nBYOB & bring a chair!",
     "rsvpContact": "Contact - Tammy Crossman Text/Call 603-749-2197",
-    "rainDate": ""
+    "rainDate": "",
+    "allowMaybe": true,
+    "rsvpYes": 0,
+    "rsvpMaybe": 0,
+    "rsvpNo": 0
   },
   {
     "id": "evt-mu31h9ba-1wc5lb",
@@ -33,6 +37,10 @@
     "hideTitleOnHero": true,
     "description": "SCA - HOA Quarterly Meeting - Come Join us! Your voice matters! 🗣️",
     "rsvpContact": "",
-    "rainDate": ""
+    "rainDate": "",
+    "allowMaybe": true,
+    "rsvpYes": 0,
+    "rsvpMaybe": 0,
+    "rsvpNo": 0
   }
 ]
