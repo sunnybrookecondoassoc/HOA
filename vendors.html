@@ -35,7 +35,7 @@
       alert("To install: open your browser menu and choose \"Install app\" or \"Add to Home Screen\".");
     }
   }
-  fetch("" + "events/events.json", {cache: "no-store"}).then(function(r){return r.json();}).then(function(events){
+  fetch("" + "events/events.json?t=" + Date.now(), {cache: "no-store"}).then(function(r){return r.json();}).then(function(events){
     var now = new Date();
     var liveCount = (events||[]).filter(function(ev){ return !ev.end || new Date(ev.end) >= now; }).length;
     var badge = document.getElementById("events-nav-badge");
