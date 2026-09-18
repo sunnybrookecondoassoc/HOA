@@ -35,7 +35,7 @@
       alert("To install: open your browser menu and choose \"Install app\" or \"Add to Home Screen\".");
     }
   }
-  fetch("../" + "events/events.json", {cache: "no-store"}).then(function(r){return r.json();}).then(function(events){
+  fetch("../" + "events/events.json?t=" + Date.now(), {cache: "no-store"}).then(function(r){return r.json();}).then(function(events){
     var now = new Date();
     var liveCount = (events||[]).filter(function(ev){ return !ev.end || new Date(ev.end) >= now; }).length;
     var badge = document.getElementById("events-nav-badge");
@@ -93,7 +93,7 @@ function rsvpUpdateCounts(counts){
   var m=document.getElementById("rsvp-count-maybe"); if(m) m.textContent="("+(counts.maybe||0)+")";
   var n=document.getElementById("rsvp-count-no"); if(n) n.textContent="("+(counts.no||0)+")";
 }
-fetch("../events/events.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(list){
+fetch("../events/events.json?t=" + Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(list){
   if(!Array.isArray(list)) return;
   var live=list.find(function(e){return e.id===RSVP_EVENT_ID;});
   if(live) rsvpUpdateCounts({yes:live.rsvpYes,maybe:live.rsvpMaybe,no:live.rsvpNo});
