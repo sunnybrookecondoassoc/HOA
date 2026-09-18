@@ -35,7 +35,7 @@
     "rsvpContact": "",
     "rainDate": "",
     "rsvpYes": 1,
-    "rsvpMaybe": 0,
+    "rsvpMaybe": 1,
     "rsvpNo": 0
   }
 ]
