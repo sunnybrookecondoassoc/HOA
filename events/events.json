@@ -33,6 +33,9 @@
     "hideTitleOnHero": true,
     "description": "SCA - HOA Quarterly Meeting - Come Join us! Your voice matters! 🗣️",
     "rsvpContact": "",
-    "rainDate": ""
+    "rainDate": "",
+    "rsvpYes": 1,
+    "rsvpMaybe": 0,
+    "rsvpNo": 0
   }
 ]
