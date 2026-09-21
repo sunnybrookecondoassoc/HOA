@@ -19,7 +19,10 @@
     "allowMaybe": true,
     "rsvpYes": 1,
     "rsvpMaybe": 0,
-    "rsvpNo": 0
+    "rsvpNo": 0,
+    "canceled": false,
+    "canceledAt": "",
+    "inviteEmailsEnc": "DSO1rWbwbFA8WBM6ZC7D6g==:lg+UPyZDul+WMi0i:+0vn2pFFvGz/+Xfyqcm1+Vt+m2lIVLCsfWIvqGy1G9rTLqY65m0pIVrdHH9on6pto6LK+qCnhYfQdiC94tZDdqXqEhVEix2uPnb/c/aReHa4y/dag4b2KoxaIG3xMr3vQt8WtYam+laiBTOLyl0uUzT8faeRK3HIlkx9KK4IxO/EwRbS74aqmHFYKmWuI0BqSD0TOo+4QJJ8LwH3/82giuFcEJswFiNowkDUvGRhbxnuUhjI3/Q27X5Ly6YubX2HnVC4SaktNyLjO5W3zvxp6IoGYZO3xtgO+fVOcVczBATbquHyuAntV+pIYscAFcmExHl/TfdyfVALmjWUnNPj+MI9eI711WMYY7+i1vraYYSygGF7lDjiB5JaZJzH6W2U1mETuRaWRdfw2uZF5jRGxC6611OZ3+IOa+uXCzG33drC5o6RbyAQnk8JClc+UfPvukV+zRq0w2IOlCN7EoBEUfEWBleMVRl7vwaXEQpOOft8zT6FVjh1Z6ijg5aB1q6eS/xJ4wopI0EJSm6N59NYCkJ1HY09iUk/WTsCQzG9pxDVrgeFWuBQvha+H/IvX4MKzlGQ8Uf46KExusq6gmeE8dpeYryAzr3fUeagEKryk+TUKLBbmpxYuZrLLCZ0EEwwUdrrHjfNrhW4h0mG+lcS4Yqxop0s0Y8jmA9l5W8IiFXACK8+6tgOik97uQM6D9rVEY+IWHigImIfpc3FTttlKcEsFV6sQ4iz/1F2weS7jg/wsfP6m52Piakc/SFf1ZeYwfthKAv+5SiIZeZu4pKWpLYprXQ8UrVaR02wcspbuj6A8BjkaDp38X8eThnCqPG4nW2pWkIuQnYPFi34FBF66YDM+hIvHkysC6BWUKh/2m8DUUPM124hVBxvwo5LNg2SMzwLtfnD7v8y00hYGHJhdLz90mFQxKoXoiZZrjr32MA8gx3vqP5JzaHiNPW4VcKGtTp6tcbftRQ+aijL4Lg4uhg+i2d5pDeKR/IusNoZCsZn4CA42u7EAEeS+p6MriPdabixMPQMrGaKJoirVCOTLodt9lhonvBflKEzvLSWkR9O0yKCQdePtp/Fc9hcIyAiWrZu21UMA9FiKvHXtJ1DFpn8rsxQPnbM4AKncbdVypX6SLrJYKQWLGCk8pPz2kTl3w5Ssjw8QtHaMIVOO57FZ0SibAKoNFKspqENlVG6ZuL2cUcrkNnuTZonHTp9G/enkLy1KKwGWow1IMAmLVfIx1xZH0A2Fr4uLPJLfWJxw3IfCxZVraf6Sio9GMZkatA6YEy5UZJlpxwNmx/kPkDClQm6U46oP/CAoyIkFXGdJAoPRq1EZwdu2tmHC+szhG7RNdcXMRWQZFyKuekTPlXLXeRuu4m133Dz8wZghY2e/hvzF5yZ5WfrIL6fKEuH2wW28nmQ95jY9hHfjGGKjXIu+ucl1LDKoiDmoSCqSLyWi9dfCVV6Ng2VCaC+MmHFwxd1l+vWgxCJvZIZm9HzWm7W8dLndmf+75qOM7Ximp8NkZQKW4wr0iY5/7Wf81oamoBio5AdKN35/Hw5xdEdbkEnSKr1GQpnczteTVUOAZzWiYtd4b1HfuuF7LSZ"
   },
   {
     "id": "evt-mu31h9ba-1wc5lb",
@@ -41,6 +44,9 @@
     "allowMaybe": true,
     "rsvpYes": 0,
     "rsvpMaybe": 0,
-    "rsvpNo": 0
+    "rsvpNo": 0,
+    "canceled": false,
+    "canceledAt": "",
+    "inviteEmailsEnc": ""
   }
 ]
