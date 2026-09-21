@@ -37,7 +37,7 @@
   }
   fetch("" + "events/events.json?t=" + Date.now(), {cache: "no-store"}).then(function(r){return r.json();}).then(function(events){
     var now = new Date();
-    var liveCount = (events||[]).filter(function(ev){ return !ev.end || new Date(ev.end) >= now; }).length;
+    var liveCount = (events||[]).filter(function(ev){ return (!ev.end || new Date(ev.end) >= now) && !ev.canceled; }).length;
     var badge = document.getElementById("events-nav-badge");
     if (badge && liveCount > 0) { badge.textContent = liveCount; badge.style.display = "inline-block"; }
     var cardBadge = document.getElementById("events-card-badge");
@@ -87,9 +87,10 @@ fetch("events/events.json?t=" + Date.now(), {cache: "no-store"}).then(function(r
   if (!ordered.length) { el.innerHTML = '<div class="info-block"><p style="color:var(--text-muted);">No events scheduled yet.</p></div>'; return; }
   el.innerHTML = ordered.map(function(ev){
     var dateStr = ev.start ? formatEventDate(ev.start) : (ev.startText || "");
+    var canceledBadge = ev.canceled ? '<span style="display:inline-block;margin-left:0.5rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:#c0392b;border:1px solid #c0392b;border-radius:4px;padding:0.05rem 0.4rem;vertical-align:middle;">Canceled</span>' : '';
     return '<a class="info-block" href="events/'+ev.id+'.html" style="display:block;text-decoration:none;color:inherit;margin-bottom:0.75rem;">'
       + '<div style="font-size:0.8rem;color:var(--primary);font-weight:600;">'+dateStr+'</div>'
-      + '<h2 style="margin:0.25rem 0 0;">'+ev.title+'</h2>'
+      + '<h2 style="margin:0.25rem 0 0;'+(ev.canceled?'text-decoration:line-through;color:var(--text-muted);':'')+'">'+ev.title+canceledBadge+'</h2>'
       + '</a>';
   }).join("");
 }).catch(function(){
