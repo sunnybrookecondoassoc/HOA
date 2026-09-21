@@ -48,5 +48,30 @@
     "canceled": false,
     "canceledAt": "",
     "inviteEmailsEnc": ""
+  },
+  {
+    "id": "evt-mubt68mf-6fwjhw",
+    "title": "🌶THIS IS A TEST EVENT - Chili Cook-Off!🌶",
+    "host": "Brian",
+    "dateMode": "picker",
+    "start": "2026-09-22T18:32",
+    "end": "2026-09-22T21:32",
+    "startText": "",
+    "endText": "",
+    "location": "18 Morgan Way, Dover NH 03820",
+    "showMap": true,
+    "heroImage": "images/ChiliCookOff.jfif",
+    "heroOverlayOpacity": 0,
+    "hideTitleOnHero": false,
+    "description": "THIS IS A TEST EVENT. THIS IS NOT REAL! DON'T GET YOUR HOPES UP :)\n\n🌶️ THE HEAT IS ON! 🌶️\n\nAnnual Spicy Chili Cook-Off\nCan You Handle The Heat?\n\nSaturday, October 10, 2026\n11:00 AM – 3:00 PM\n\n18 Morgan Way, Dover NH 03820\n\nCOMPETE OR JUST COME TO EAT!\n\nCategories:\n\nBest Overall\nSpiciest\nMost Creative\nPeople's Choice (voted by attendees)",
+    "rsvpContact": "Stealthmail@gmail.com",
+    "rainDate": "2026-10-17",
+    "allowMaybe": true,
+    "rsvpYes": 0,
+    "rsvpMaybe": 0,
+    "rsvpNo": 0,
+    "canceled": false,
+    "canceledAt": "",
+    "inviteEmailsEnc": "E/nx6IyPnIfSdrpndn6Jnw==:dtFjnT6wwM6l76yw:1cOuYKsBfX7gl03WNoQDJ0ihUISoT/TfN31EhuQwuNp4Sw1iRRDYMiYSmWMrAl4aLzonMcxsYISatfY/6Z2FY0FUHShcUBYtoJ4UAjuZg+zn+0Gf3i9UqBqEfLVZEXRf3R6cK2nfaza7xd6r5RQ77rs4iuxSXW3Gzt6B17NDbwfDwzxoIK/o1yG80Z0lTvqO36UFOQPCb4VbfisRRzVavngTCRhehMTYLbZ/5d0bfDvxIHt/Wf1mSCXb5Peiph84QUBFRq0/B8iWfwU/VWuOnq30h9MCsz/+JPi30S5hAFTu68XtHEx77kWJL/ZQkvNQpwomHR74vOkR6gZGj8YUTiEOL7eh//0A4QmhinWAt0rlfcePw+XclY2pMsqf2M5ypq3rxwdd0boOreDr9X5WHw150VdZ1bIDaexdwsirndO5aGAHuqQiAmTDTKDE5vqwQ8SvrKFTB8uY2TOZcu5mNKztOu3CXuEalTWQmu1uHf1eoS5yOvZAxleN1cyKicG5m/A4sjvHkCRdeYlmthxkOsVMH+967DqatUWFgyahVUNa+vAmFydxoLzezyv+rQTZTp8gyvR4BAzXz/VswWaiaf8yXfae0ObiT7DN91kU2ONIk3bjX8J2+mh2J9meLHXMO1pUD830eYQV+xZXLmVVN9pqAIz/uOsLgj2F0SURxyvfhmVGcY9ROzfydZAoalZOVg0io59BrcbS+0D9bKPjT6cbh7E01nLxJMi6u85WAPPL2qCmha6MHX2ZzBxbM7SG+/RQcrIJDZgsl436AdeYuuy6qrbod/qs60vxKe7am2uHQ7qXbTyulSAzD/ppThgEmMwDl/77EpQS6AVFd6mwUm0kG8DeVu/CkQ8Wkveq2d3xIOg0zOal1GvDkcYmzc9CvlW5QouMpZ1r1A2NBGabNkjiKuZDmZYcGMp5xPle87ZJpn2ZyhPXVMNc5cH4XvRCeBFPkJp2t2Jr2UJL4J04/6vcrTJj8CtudAlHVfTLIIdY2vff3bJFWOVTgHWrOiH5cl+kDzk+H07Bhr/JbulkOwe6E/WdFd/jYxZHopX21ToLp7mwac/bPiBBvxmmbqYpRv3R5YyBN0zqOSDst66eJ+rObKdVQOLtOjYZFvPrwHV0rX8KG9JaB05Qe6ht8haMjzlPFzgEF+qZt1JceGl8FkyrIhCigUJHA7FKXxIw0pDpz6uIwn19Ce6zisVuA5f/GsIVdCbQ3UggoYJL3u85ilVg0ykky2KJzzFpRLqvMqkFDtKLPHyBeyQmcJEmUJNYj9fjaIBCg5wXpLmwZhvQ9fceY5pMR0aFJ5506hZUeix4lLotu0MhWI9kUMWv5xc9UaIWSC6cB0/3SnHUopvc+50uZRH8KBioQUjsbGkXmTbLoRpk7x8zi1FUb23cIbNPi/uGHFrMgIFbA0iLOLBbNuPDaG9W2J8RJ6XSfaYhnFZJtkSZOP5MZQ3E7w17cUxMzfJx0XdWA1ks9P0HMkpTxhhJ+C6otHbEBvfjeWFj6+g5YqzDv47J9i8Km68L6P8hILk5esIIZU0QyaV+jxrNy8gohAy5GQ37xHIhPJ2CxSx1cgvq4sMGSPsvWE3pNU0pfs8lXHN/zZOfeRxLJ59oBmKJgV324sh2zxSMUstIUKN59lZmquO1vQYPwPex"
   }
 ]
