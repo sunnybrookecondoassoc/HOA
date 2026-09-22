@@ -18,7 +18,7 @@
     "rainDate": "",
     "allowMaybe": true,
     "rsvpYes": 1,
-    "rsvpMaybe": 0,
+    "rsvpMaybe": 1,
     "rsvpNo": 0,
     "canceled": false,
     "canceledAt": "",
