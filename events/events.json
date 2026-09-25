@@ -52,7 +52,7 @@
     "canceledAt": "",
     "sendReminder": true,
     "notifyOnCancel": true,
-    "reminderSent": false,
+    "reminderSent": true,
     "inviteEmailsEnc": ""
   }
 ]
