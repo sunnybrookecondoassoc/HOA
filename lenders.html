@@ -43,6 +43,14 @@
     var cardBadge = document.getElementById("events-card-badge");
     if (cardBadge && liveCount > 0) { cardBadge.textContent = liveCount; cardBadge.style.display = "inline-block"; }
   }).catch(function(){});
+  fetch("" + "notices.json?t=" + Date.now(), {cache: "no-store"}).then(function(r){return r.json();}).then(function(notices){
+    function daysSince(s){ if(!s) return 999999; var t=new Date(s+"T00:00:00"); return Math.floor((new Date()-t)/86400000); }
+    var newCount = (notices||[]).filter(function(n){ var days=(n.newDays===""||n.newDays==null)?7:Number(n.newDays); return daysSince(n.publishedDate) < days; }).length;
+    var nb = document.getElementById("notices-nav-badge");
+    if (nb && newCount > 0) { nb.textContent = newCount; nb.style.display = "inline-block"; }
+    var ncb = document.getElementById("notices-card-badge");
+    if (ncb && newCount > 0) { ncb.textContent = newCount; ncb.style.display = "inline-block"; }
+  }).catch(function(){});
 </script>
 <nav>
   <div class="nav-inner">
@@ -59,6 +67,7 @@
       <li><a href="contact.html">Contact</a></li>
       <li><a href="residents.html">Residents</a></li>
       <li><a href="events.html">Events <span id="events-nav-badge" style="display:none;background:#c0392b;color:#fff;border-radius:999px;font-size:0.72rem;line-height:1;padding:0.2em 0.5em;margin-left:0.35em;vertical-align:middle;"></span></a></li>
+      <li><a href="notices.html">🔔 <span id="notices-nav-badge" style="display:none;background:#c0392b;color:#fff;border-radius:999px;font-size:0.72rem;line-height:1;padding:0.2em 0.5em;margin-left:0.35em;vertical-align:middle;"></span></a></li>
     </ul>
   </div>
 </nav>
