@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Notices - Sunnybrooke Condo Association</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="icon" href="icon-192.png" type="image/png"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Sunnybrooke Condo Association"/>
+<script data-goatcounter="https://sunnybrookecondos.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7262d9d7b1e74dd9ba6e4d7131dce18d"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+
+<script>
+  function toggleMenu(){var nl=document.getElementById("nav-links");if(nl)nl.classList.toggle("open");}
+  var deferredInstallPrompt=null;
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
+  function installApp(){
+    var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+    if(isIOS){
+      alert("To install: tap the Share icon, then \"Add to Home Screen\".");
+      return;
+    }
+    if(deferredInstallPrompt){
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then(function(){deferredInstallPrompt=null;});
+    } else {
+      alert("To install: open your browser menu and choose \"Install app\" or \"Add to Home Screen\".");
+    }
+  }
+  fetch("" + "events/events.json?t=" + Date.now(), {cache: "no-store"}).then(function(r){return r.json();}).then(function(events){
+    var now = new Date();
+    var liveCount = (events||[]).filter(function(ev){ return (!ev.end || new Date(ev.end) >= now) && !ev.canceled; }).length;
+    var badge = document.getElementById("events-nav-badge");
+    if (badge && liveCount > 0) { badge.textContent = liveCount; badge.style.display = "inline-block"; }
+    var cardBadge = document.getElementById("events-card-badge");
+    if (cardBadge && liveCount > 0) { cardBadge.textContent = liveCount; cardBadge.style.display = "inline-block"; }
+  }).catch(function(){});
+  fetch("" + "notices.json?t=" + Date.now(), {cache: "no-store"}).then(function(r){return r.json();}).then(function(notices){
+    function daysSince(s){ if(!s) return 999999; var t=new Date(s+"T00:00:00"); return Math.floor((new Date()-t)/86400000); }
+    var newCount = (notices||[]).filter(function(n){ var days=(n.newDays===""||n.newDays==null)?7:Number(n.newDays); return daysSince(n.publishedDate) < days; }).length;
+    var nb = document.getElementById("notices-nav-badge");
+    if (nb && newCount > 0) { nb.textContent = newCount; nb.style.display = "inline-block"; }
+    var ncb = document.getElementById("notices-card-badge");
+    if (ncb && newCount > 0) { ncb.textContent = newCount; ncb.style.display = "inline-block"; }
+  }).catch(function(){});
+</script>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand-row">
+      <a class="nav-brand" href="index.html">Sunnybrooke Condo Association</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li class="nav-install-item"><a href="#" onclick="installApp();return false;">Install The SCA App!</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="documents.html">Documents</a></li>
+      <li><a href="vendors.html">Preferred Vendors</a></li>
+      <li><a href="lenders.html">Lenders &amp; Realtors</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="residents.html">Residents</a></li>
+      <li><a href="events.html">Events <span id="events-nav-badge" style="display:none;background:#c0392b;color:#fff;border-radius:999px;font-size:0.72rem;line-height:1;padding:0.2em 0.5em;margin-left:0.35em;vertical-align:middle;"></span></a></li>
+      <li><a href="notices.html" class="active">🔔 <span id="notices-nav-badge" style="display:none;background:#c0392b;color:#fff;border-radius:999px;font-size:0.72rem;line-height:1;padding:0.2em 0.5em;margin-left:0.35em;vertical-align:middle;"></span></a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+<div class="page-header"><h1>🔔 Notices</h1><p>Announcements from the association for Sunnybrooke Condo Association</p></div>
+<div class="container" style="max-width:760px;">
+<div id="notices-container"><div class="info-block"><p style="color:var(--text-muted);">Loading notices…</p></div></div>
+</div>
+<script>
+function noticeDaysSince(s){if(!s)return 999999;var t=new Date(s+"T00:00:00");return Math.floor((new Date()-t)/86400000);}
+function noticeIsNewPublic(n){var days=(n.newDays===""||n.newDays==null)?7:Number(n.newDays);return noticeDaysSince(n.publishedDate)<days;}
+document.addEventListener("click",function(e){
+  var s=e.target.closest(".notice-summary");
+  if(!s)return;
+  var card=s.closest(".notice-card");
+  if(!card)return;
+  var body=card.querySelector(".notice-body");
+  var open=card.classList.toggle("open");
+  if(body)body.style.display=open?"block":"none";
+});
+function printNotice(btn){
+  var card=btn.closest(".notice-card");
+  if(!card)return;
+  var body=card.querySelector(".notice-body");
+  var wasOpen=card.classList.contains("open");
+  if(!wasOpen){card.classList.add("open");if(body)body.style.display="block";}
+  document.body.classList.add("printing-single-notice");
+  card.classList.add("print-target");
+  window.print();
+  window.addEventListener("afterprint",function cleanup(){
+    card.classList.remove("print-target");
+    document.body.classList.remove("printing-single-notice");
+    if(!wasOpen){card.classList.remove("open");if(body)body.style.display="none";}
+    window.removeEventListener("afterprint",cleanup);
+  });
+}
+fetch("notices.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json();}).then(function(notices){
+  var el=document.getElementById("notices-container");
+  if(!notices||!notices.length){el.innerHTML="<div class=\"info-block\"><p>No notices right now.</p></div>";return;}
+  var html=notices.map(function(n,i){
+    var expanded=i<3;
+    var isNew=noticeIsNewPublic(n);
+    var newPill=isNew?"<span class=\"notice-new-pill\">NEW</span>":"";
+    var photoHtml=n.photo?("<img src=\""+n.photo+"\" alt=\"\" class=\"notice-photo\">"):"";
+    var linkHtml=n.link?("<p><a href=\""+n.link+"\" target=\"_blank\" rel=\"noopener\">Learn more \u2192</a></p>"):"";
+    var printBtnHtml="<button type=\"button\" class=\"notice-print-btn print-hide\" onclick=\"printNotice(this)\">&#128424; Print / Save as PDF</button>";
+    return "<div class=\"notice-card"+(expanded?" open":"")+"\" id=\"notice-card-"+n.id+"\">"
+      + "<div class=\"notice-summary\">"
+      +   "<span class=\"notice-title\">"+n.title+newPill+"</span>"
+      +   "<span class=\"notice-date\">"+n.publishedDate+"</span>"
+      + "</div>"
+      + "<div class=\"notice-body\" style=\"display:"+(expanded?"block":"none")+"\">"+photoHtml+n.bodyHtml+linkHtml+printBtnHtml+"</div>"
+      + "</div>";
+  }).join("");
+  el.innerHTML=html;
+}).catch(function(){});
+</script>
+<style>@media print { .print-hide, nav, footer { display:none !important; } .printing-single-notice .page-header { display:none !important; } .printing-single-notice .notice-card { display:none !important; } .printing-single-notice .notice-card.print-target { display:block !important; box-shadow:none !important; margin:0 !important; } .printing-single-notice .notice-card.print-target .notice-body { display:block !important; } .notice-date, .notice-body { color:#000 !important; } body { padding:0; } }</style>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand-wrap"><span class="footer-brand"><a href="https://www.facebook.com/profile.php?id=61590887171758" target="_blank" rel="noopener" style="display:inline-block;line-height:0;"><img src="brandlogo.png" alt="logo" style="height:22px;width:auto;vertical-align:middle;opacity:0.75;"/></a></span></div>
+    <p><strong>Sunnybrooke Condo Association</strong> &middot; PO Box 1367, Dover, NH, 03821 &middot; <a href="mailto:SunnybrookeCondo@gmail.com">SunnybrookeCondo@gmail.com</a></p>
+    <div class="footer-brand-spacer"></div>
+  </div>
+</footer>
+</body>
+</html>
