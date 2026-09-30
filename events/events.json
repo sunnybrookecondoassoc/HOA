@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": "evt-muolbadv-yvvdsd",
+    "title": "🌶TEST EVENT - Chili Cook-Off!🌶",
+    "host": "Brian",
+    "dateMode": "picker",
+    "start": "2026-09-30T17:05",
+    "end": "2026-09-30T17:10",
+    "startText": "",
+    "endText": "",
+    "location": "18 Morgan Way, Dover NH 03820",
+    "showMap": true,
+    "heroImage": "images/ChiliCookOff.jfif",
+    "heroOverlayOpacity": 0,
+    "hideTitleOnHero": false,
+    "description": "THIS IS A TEST EVENT. THIS IS NOT REAL! DON'T GET YOUR HOPES UP :)\n\n🌶️ THE HEAT IS ON! 🌶️\n\nAnnual Spicy Chili Cook-Off\nCan You Handle The Heat?\n\nSaturday, October 10, 2026\n11:00 AM – 3:00 PM\n\n18 Morgan Way, Dover NH 03820\n\nCOMPETE OR JUST COME TO EAT!\n\nCategories:\n\nBest Overall\nSpiciest\nMost Creative\nPeople's Choice (voted by attendees)",
+    "rsvpContact": "Stealthmail@gmail.com",
+    "rainDate": "",
+    "allowMaybe": true,
+    "rsvpYes": 0,
+    "rsvpMaybe": 0,
+    "rsvpNo": 0,
+    "canceled": false,
+    "canceledAt": "",
+    "sendReminder": true,
+    "notifyOnCancel": true,
+    "sendInvite": true,
+    "reminderSent": false,
+    "inviteSent": false,
+    "inviteEmailsEnc": ""
+  }
+]
