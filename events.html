@@ -45,11 +45,13 @@
   }).catch(function(){});
   fetch("" + "notices.json?t=" + Date.now(), {cache: "no-store"}).then(function(r){return r.json();}).then(function(notices){
     function daysSince(s){ if(!s) return 999999; var t=new Date(s+"T00:00:00"); return Math.floor((new Date()-t)/86400000); }
-    var newCount = (notices||[]).filter(function(n){ var days=(n.newDays===""||n.newDays==null)?7:Number(n.newDays); return daysSince(n.publishedDate) < days; }).length;
+    var freshNotices = (notices||[]).filter(function(n){ var days=(n.newDays===""||n.newDays==null)?7:Number(n.newDays); return daysSince(n.publishedDate) < days; });
+    var newCount = freshNotices.length;
+    var hasPetAlert = freshNotices.some(function(n){ return (n.title||"").indexOf("🐾") !== -1; });
     var nb = document.getElementById("notices-nav-badge");
-    if (nb && newCount > 0) { nb.textContent = newCount; nb.style.display = "inline-block"; }
+    if (nb && newCount > 0) { nb.textContent = newCount; nb.style.display = "inline-block"; nb.classList.toggle("pet-alert", hasPetAlert); }
     var ncb = document.getElementById("notices-card-badge");
-    if (ncb && newCount > 0) { ncb.textContent = newCount; ncb.style.display = "inline-block"; }
+    if (ncb && newCount > 0) { ncb.textContent = newCount; ncb.style.display = "inline-block"; ncb.classList.toggle("pet-alert", hasPetAlert); }
   }).catch(function(){});
 </script>
 <nav>
