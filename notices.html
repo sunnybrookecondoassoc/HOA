@@ -75,6 +75,7 @@
 <div class="page-header"><h1>🔔 Notices</h1><p>Announcements from the association for Sunnybrooke Condo Association</p></div>
 <div class="container" style="max-width:760px;">
 <div id="notices-container"><div class="info-block"><p style="color:var(--text-muted);">Loading notices…</p></div></div>
+<div class="info-block pet-report-wrap" id="pet-form-wrap" style="margin-top:2rem;"><div class="pet-report-header" id="pet-form-toggle" onclick="togglePetForm()"><h2 style="margin:0;">🐾 Report a Lost or Found Pet</h2><span class="pet-report-chevron">▸</span></div><div id="pet-form-body" style="display:none;margin-top:1rem;"><p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1.25rem;">Lost your pet, or found one wandering the neighborhood? Submit the details here and we’ll get it posted. Fields marked <span style="color:#c0392b;">*</span> are required.</p><div id="pet-submit-success" style="display:none;background:var(--forest-light,#eef5ee);color:var(--primary);border:1px solid var(--primary);border-radius:6px;padding:0.85rem 1rem;font-size:0.9rem;margin-bottom:1rem;">Thanks! Your report has been sent to the board for review.</div><div id="pet-submit-error" style="display:none;color:#c0392b;font-size:0.85rem;margin-bottom:1rem;"></div><form id="pet-report-form" style="display:flex;flex-direction:column;gap:0.85rem;"><div><label style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.4rem;">Report Type <span style="color:#c0392b;">*</span></label><div style="display:flex;gap:1.5rem;"><label style="font-size:0.9rem;font-weight:400;text-transform:none;letter-spacing:normal;cursor:pointer;"><input type="radio" id="pet-type-lost" name="pet_report_type" value="lost" checked onchange="updatePetFormLabels()" style="width:auto;margin-right:0.4rem;"/>Lost Pet</label><label style="font-size:0.9rem;font-weight:400;text-transform:none;letter-spacing:normal;cursor:pointer;"><input type="radio" id="pet-type-found" name="pet_report_type" value="found" onchange="updatePetFormLabels()" style="width:auto;margin-right:0.4rem;"/>Found Pet</label></div></div><div><label for="pet-name" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Pet’s Name <span class="opt">(optional)</span></label><input id="pet-name" type="text" style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div><label for="pet-breed" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Species / Breed <span class="opt">(optional)</span></label><input id="pet-breed" type="text" placeholder="e.g. Beagle mix" style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div class="form-row" style="display:flex;gap:0.75rem;"><div style="flex:1;"><label for="pet-date" id="pet-date-label" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Date Last Seen <span style="color:#c0392b;">*</span></label><input id="pet-date" type="date" required style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div style="flex:1;"><label for="pet-location" id="pet-loc-label" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Last Seen Near <span style="color:#c0392b;">*</span></label><input id="pet-location" type="text" placeholder="e.g. Near the clubhouse" required style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div></div><div><label for="pet-color" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Color / Markings <span class="opt">(optional)</span></label><input id="pet-color" type="text" placeholder="e.g. Tri-color - brown, black, and white" style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div><label for="pet-collar" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Collar / ID Tag <span class="opt">(optional)</span></label><input id="pet-collar" type="text" placeholder="e.g. Blue collar with a small silver tag" style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div><label for="pet-photo" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Photo <span class="opt">(optional)</span></label><input id="pet-photo" type="file" accept="image/jpeg,image/png,image/gif,image/webp" onchange="validatePetForm()" style="width:100%;font-size:0.85rem;"/><div id="pet-file-error" style="display:none;color:#c0392b;font-size:0.8rem;margin-top:0.35rem;"></div><div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.35rem;">JPEG, PNG, GIF, or WEBP, up to 5MB.</div></div><div><label for="pet-details" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Additional Details <span class="opt">(optional)</span></label><textarea id="pet-details" rows="3" placeholder="Temperament, how to approach, age, size, or anything else neighbors should know" style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;resize:vertical;"></textarea></div><div><label for="pet-owner-name" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Your Name <span style="color:#c0392b;">*</span></label><input id="pet-owner-name" type="text" required style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><div><label for="pet-owner-contact" style="display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem;">Your Email or Phone <span style="color:#c0392b;">*</span></label><input id="pet-owner-contact" type="text" placeholder="So the board can follow up" required style="width:100%;padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.9rem;font-family:inherit;"/></div><input type="text" id="pet-hp" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;" /><div><button type="submit" id="pet-submit-btn" disabled style="background:var(--primary);color:#fff;border:none;border-radius:7px;padding:0.7rem 2rem;font-size:0.9rem;font-weight:600;cursor:not-allowed;opacity:0.5;font-family:inherit;">Submit Lost-Pet Report</button></div></form></div></div>
 </div>
 <script>
 function noticeDaysSince(s){if(!s)return 999999;var t=new Date(s+"T00:00:00");return Math.floor((new Date()-t)/86400000);}
@@ -104,6 +105,92 @@ function printNotice(btn){
     window.removeEventListener("afterprint",cleanup);
   });
 }
+function togglePetForm(){
+  var wrap=document.getElementById("pet-form-wrap");
+  var body=document.getElementById("pet-form-body");
+  if(!wrap)return;
+  var open=wrap.classList.toggle("open");
+  if(body)body.style.display=open?"block":"none";
+}
+function updatePetFormLabels(){
+  var isFound=document.getElementById("pet-type-found").checked;
+  document.getElementById("pet-date-label").textContent=(isFound?"Date Found":"Date Last Seen")+" *";
+  document.getElementById("pet-loc-label").textContent=(isFound?"Where Found":"Last Seen Near")+" *";
+  var btn=document.getElementById("pet-submit-btn");
+  if(btn)btn.textContent=isFound?"Submit Found-Pet Report":"Submit Lost-Pet Report";
+}
+function validatePetForm(){
+  var ids=["pet-date","pet-location","pet-owner-name","pet-owner-contact"];
+  var ok=ids.every(function(id){var el=document.getElementById(id);return el&&el.value.trim();});
+  var fileEl=document.getElementById("pet-photo");
+  var fileErr="";
+  if(fileEl&&fileEl.files&&fileEl.files[0]){
+    var f=fileEl.files[0];
+    if(f.size>5*1024*1024){ok=false;fileErr="Photo must be 5MB or smaller.";}
+    else if(["image/jpeg","image/png","image/gif","image/webp"].indexOf(f.type)===-1){ok=false;fileErr="Photo must be a JPEG, PNG, GIF, or WEBP image.";}
+  }
+  var fe=document.getElementById("pet-file-error");
+  if(fe){fe.textContent=fileErr;fe.style.display=fileErr?"block":"none";}
+  var btn=document.getElementById("pet-submit-btn");
+  if(btn){btn.disabled=!ok;btn.style.opacity=ok?"1":"0.5";btn.style.cursor=ok?"pointer":"not-allowed";}
+  return ok;
+}
+var PET_REPORT_ENDPOINT="https://sunnybrooke-forms-v2.sunnybrookeca.workers.dev";
+function petPhotoToBase64(file){
+  return new Promise(function(resolve,reject){
+    var r=new FileReader();
+    r.onload=function(){resolve(r.result.split(",")[1]);};
+    r.onerror=function(){reject(new Error("Could not read the photo file"));};
+    r.readAsDataURL(file);
+  });
+}
+async function submitPetForm(e){
+  e.preventDefault();
+  if(!validatePetForm()){alert("Please fill in all the required fields (and double-check your photo, if attached) before submitting.");return;}
+  var errEl=document.getElementById("pet-submit-error");var okEl=document.getElementById("pet-submit-success");
+  errEl.style.display="none";
+  var btn=document.getElementById("pet-submit-btn");var prevText=btn.textContent;btn.disabled=true;btn.textContent="Sending\u2026";
+  var isFound=document.getElementById("pet-type-found").checked;
+  var payload={
+    formType:"petReport",
+    report_type:isFound?"found":"lost",
+    pet_name:document.getElementById("pet-name").value.trim(),
+    species_breed:document.getElementById("pet-breed").value.trim(),
+    report_date:document.getElementById("pet-date").value.trim(),
+    location:document.getElementById("pet-location").value.trim(),
+    color_markings:document.getElementById("pet-color").value.trim(),
+    collar_desc:document.getElementById("pet-collar").value.trim(),
+    details:document.getElementById("pet-details").value.trim(),
+    submitter_name:document.getElementById("pet-owner-name").value.trim(),
+    submitter_contact:document.getElementById("pet-owner-contact").value.trim(),
+    _honeypot:document.getElementById("pet-hp").value
+  };
+  var fileEl=document.getElementById("pet-photo");
+  var photoFile=(fileEl&&fileEl.files&&fileEl.files[0])?fileEl.files[0]:null;
+  try{
+    if(photoFile){
+      payload.photo=await petPhotoToBase64(photoFile);
+      payload.photoType=photoFile.type;
+      payload.photoName=photoFile.name;
+    }
+    var res=await fetch(PET_REPORT_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    var json=await res.json().catch(function(){return{};});
+    if(res.ok&&json.ok){
+      document.getElementById("pet-report-form").style.display="none";
+      okEl.style.display="block";
+    }else{
+      errEl.textContent="Something went wrong: "+(json&&json.error?json.error:("HTTP "+res.status))+". Please try again, or contact the board directly.";errEl.style.display="block";
+      btn.disabled=false;btn.textContent=prevText;
+    }
+  }catch(e2){
+    errEl.textContent="Something went wrong: "+(e2&&e2.message?e2.message:"network error")+". Please try again, or contact the board directly.";errEl.style.display="block";
+    btn.disabled=false;btn.textContent=prevText;
+  }
+}
+document.addEventListener("DOMContentLoaded",function(){
+  var f=document.getElementById("pet-report-form");
+  if(f){f.addEventListener("input",validatePetForm);f.addEventListener("submit",submitPetForm);validatePetForm();}
+});
 fetch("notices.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json();}).then(function(notices){
   var el=document.getElementById("notices-container");
   if(!notices||!notices.length){el.innerHTML="<div class=\"info-block\"><p>No notices right now.</p></div>";return;}
