@@ -48,10 +48,11 @@
     var freshNotices = (notices||[]).filter(function(n){ var days=(n.newDays===""||n.newDays==null)?7:Number(n.newDays); return daysSince(n.publishedDate) < days; });
     var newCount = freshNotices.length;
     var hasPetAlert = freshNotices.some(function(n){ return (n.title||"").indexOf("🐾") !== -1; });
+    var badgeText = hasPetAlert ? ("🐾" + newCount) : String(newCount);
     var nb = document.getElementById("notices-nav-badge");
-    if (nb && newCount > 0) { nb.textContent = newCount; nb.style.display = "inline-block"; nb.classList.toggle("pet-alert", hasPetAlert); }
+    if (nb && newCount > 0) { nb.textContent = badgeText; nb.style.display = "inline-block"; nb.classList.toggle("pet-alert", hasPetAlert); }
     var ncb = document.getElementById("notices-card-badge");
-    if (ncb && newCount > 0) { ncb.textContent = newCount; ncb.style.display = "inline-block"; ncb.classList.toggle("pet-alert", hasPetAlert); }
+    if (ncb && newCount > 0) { ncb.textContent = badgeText; ncb.style.display = "inline-block"; ncb.classList.toggle("pet-alert", hasPetAlert); }
   }).catch(function(){});
 </script>
 <nav>
