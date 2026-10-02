@@ -20,7 +20,7 @@
 
 <script>
   function toggleMenu(){var nl=document.getElementById("nav-links");if(nl)nl.classList.toggle("open");}
-  var PUSH_VAPID_KEY="";
+  var PUSH_VAPID_KEY="BH2XQO9rCf7PpZlJxnveI53IXX0O65ulvsQERD2rD1Qlta3vrpREY7ZB8EspgINgT_XpBnA-PA61zxUSmttNBCQ";
   var PUSH_ENDPOINT="https://sunnybrooke-forms-v2.sunnybrookeca.workers.dev";
   function urlBase64ToUint8Array(base64String){
     var padding="=".repeat((4-base64String.length%4)%4);
@@ -114,6 +114,7 @@
     </div>
     <ul class="nav-links" id="nav-links">
       <li class="nav-install-item"><a href="#" onclick="installApp();return false;">Install The SCA App!</a></li>
+      <li class="nav-install-item"><a href="#" id="push-nav-link" onclick="togglePushSubscription();return false;">🔔 Turn On Notifications</a></li>
       <li><a href="index.html">Home</a></li>
       <li><a href="documents.html">Documents</a></li>
       <li><a href="vendors.html">Preferred Vendors</a></li>
