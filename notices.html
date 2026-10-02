@@ -49,7 +49,7 @@
 
 <script>
   function toggleMenu(){var nl=document.getElementById("nav-links");if(nl)nl.classList.toggle("open");}
-  var PUSH_VAPID_KEY="";
+  var PUSH_VAPID_KEY="BH2XQO9rCf7PpZlJxnveI53IXX0O65ulvsQERD2rD1Qlta3vrpREY7ZB8EspgINgT_XpBnA-PA61zxUSmttNBCQ";
   var PUSH_ENDPOINT="https://sunnybrooke-forms-v2.sunnybrookeca.workers.dev";
   function urlBase64ToUint8Array(base64String){
     var padding="=".repeat((4-base64String.length%4)%4);
@@ -143,6 +143,7 @@
     </div>
     <ul class="nav-links" id="nav-links">
       <li class="nav-install-item"><a href="#" onclick="installApp();return false;">Install The SCA App!</a></li>
+      <li class="nav-install-item"><a href="#" id="push-nav-link" onclick="togglePushSubscription();return false;">🔔 Turn On Notifications</a></li>
       <li><a href="index.html">Home</a></li>
       <li><a href="documents.html">Documents</a></li>
       <li><a href="vendors.html">Preferred Vendors</a></li>
@@ -195,9 +196,9 @@ function togglePetForm(){
   var open=wrap.classList.toggle("open");
   if(body)body.style.display=open?"block":"none";
 }
-var PET_ADDR_CT="wIiMuro0V5x0dUq5KgF+mn6CSX7X/ZdijYctAkHUuWMywrXxN+NNV1B+iJM1/003pWm6J3b+956v0a820OHdL6zrlQ9Ej8O8tVNPTacUR2eMyVY5y+0Zs00lany3xeHV+aRJOABnrqVWoLQHJfEm85j50jCovbv9AY6Nhn+MW02qzAl3Hzw7pgav/M/z+1fUziNhkJjP5f68xPyeNqc9/YCJczjy745tmy8LiFtM39JHwO9AnHJT+KznE4G0xowDs9AhEwck8pEjznSYgWKiJvB1bqftqTo/EFGx1mxUu/Wn9ad4ZK33zXb+zQNe/CHilZWvc/QMR07fAzMav+bsjJ+LHG5T/19rF9QF4EKcKsG3n1JXMwrk1x5Ez+hmYfVkQr+CIeM29FRnR7GDGoSX3ALDQxaoc72naloQZtMnxd+4QecYZUTDgo9hDixfIDMqI4d47Jno1ap8EJziz3ksrlX352sn6n5e5V04KQkb7r3EZ9DIVJLL41iFY47HztH7RYpQsMa4TXxTRCZ1ceOsRmaNdJuCIx77MFovwfUJrrdp4OLxFQ1vBfSRwZT4/sSIjS6iNSRcTOv6ostFIgapAtuWLHaMHZrmlFpiuqThhOCtA2JXw48mdJnxsbpIP9go/lflDGCJ+bOqyUrKa0mQStzUv2u6exkvJqOhR0Bl+CP2YfRdmv2z2m72JeO2mJ163xn880ETwgooDjU6ocpHTLF2qoy0JaG7OLOrKw9WmaO9czOUc8WDcT2GMaKRhlin95RdFquJnrDld3mWWkJDww+CLabPH9AT0OxS65bGGL1RuMCoTSPqA0c5i1tZzwy63feiAZDuwsSddzt5iinVrJcTDDoof45NSU7HkaWHDHA8RCLvDGPU/+k791uAGl4nvph8aTU5aBhdc/6m+Q7aizxLGDXz5EIzM7A0dkvBpd0Fg1W8YsPMs4e7d+arNJg/XCrf3VsM/ZbODZAgCGWGDFI/pbuHJ/J3akhad7kdniiJcOZ1DEZ7maeFnxcJPGxgK5M/";
-var PET_ADDR_SALT="0EP1lXGO9GutGEU8VRqA4g==";
-var PET_ADDR_IV="Ip+t0Od/DcpuYVHW";
+var PET_ADDR_CT="GeGzdYdVf4rI/q6KQaFxuaVUtNfBGPDyNXVaWwhTbjQTtfAxz4YZiM0CSclSIK3CQRivQUMAOwgukvWrVJ+21eqEBSSXovytaRrS/37cyGk3qgJ5abWqdmihKObtM536mAUNWYyMT3lRIgwnTtwlru+FizSNGEzWAEdcuS/WyG3Z8S49eO2dXyK3osJ924wLKEsEiEzvY/oFEf/Ianvv0IYSVY+R6hofw9Ycxue3lyQmvEcbpGn5mOkkjMMPkKy1OitE67fZEqrmZLBqwG2xqQX+XPj3XqNzDhgcRLXDOCNe4MIcridqK7rf8vPDG2I0ZbsCYKPUVsyNmBrC8afvD9IHtxH0SEV45mbvUdO7wxJLXDSUUvJrx9g3bFNtC48U98bcI/MMwOAgUOAa07th92woC7W825/OH9aaQA1mSF/NCLaZXUL/6DTOwPZF/oeX8cLTPptgjF8zvQvazziTKFtEvylJcxrpNNyzf25noQF3tRoKr8O4Hau/5UUNFhZrMlMGvDvojdaQf1/E39yHBbqo2zL4BlqTqcDn2YpAo+2PmjcewRuHYnwe6G5o6VcBxKtJJhd1lVHzUf+NNMQnSRl6bKMVEkWyTkWwRV1LmF1DVCNojD/b3GsMaZi6KNg8R6GlH1/1qzZ4QA+TT8YiBN8xxw5WHBfEAyMBuevHdO8HmIUdKDqAZ5obFnK/snxM8Ltg3zu9HSK38n2cVUpjTBmwdXlc3KQ0EDSSiM52cuvbc0JcfgSyxLSTKHW/OuBJiziULRPRlaEXCatG7inHvIuHD6wZpXfSiKLRoHiR2yPfTGHhIvBum2PqVxyPQA/5S0WfAXzeCqtP4tmmab56UPgL3PGWzKjvEgdLcSGARHZzroNJ1W6fJliMuItmF3D0idUgdbwp+LgjFuUOFAJKq39THETDs2nzdn83dfNcZdBojvDxNKgkBxp0F3PtyQZsEZIJJGxGeWJzd56bWyi5rUs12YLZVbXtwgSet5OLdbEyT3OitreRBrbj1275rVW1eeoS";
+var PET_ADDR_SALT="DIUzLwT3vA7qngSSOr19UQ==";
+var PET_ADDR_IV="BSQ+zPR8se8iOCHf";
 var PET_RES_HASH="dcf2363a0ff9ca541c2a77015618c3c4bacbf4e955a3cac2b89037fe3bab4e6f";
 function b64ToU8Pet(s){var b=atob(s);var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 function togglePetPwVisibility(btn){
