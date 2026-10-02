@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Contact - Sunnybrooke Condo Association</title>
-<link rel="stylesheet" href="style.css?v=v2.15-162"/>
+<link rel="stylesheet" href="style.css?v=v2.15-161"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="icon-192.png" type="image/png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -20,57 +20,6 @@
 
 <script>
   function toggleMenu(){var nl=document.getElementById("nav-links");if(nl)nl.classList.toggle("open");}
-  var PUSH_VAPID_KEY="BOYnfDYXNPd-GgvrLaBdm10ofEqyCguAyGW34RR1jFtWjnKTZ12aWI3Wejam6wi33Fj4JML8SWiFSsYyfmAHcSE";
-  var PUSH_ENDPOINT="https://sunnybrooke-forms-v2.sunnybrookeca.workers.dev";
-  function urlBase64ToUint8Array(base64String){
-    var padding="=".repeat((4-base64String.length%4)%4);
-    var base64=(base64String+padding).replace(/-/g,"+").replace(/_/g,"/");
-    var rawData=atob(base64);var outputArray=new Uint8Array(rawData.length);
-    for(var i=0;i<rawData.length;i++){outputArray[i]=rawData.charCodeAt(i);}
-    return outputArray;
-  }
-  function updatePushNavUI(subscribed){
-    var link=document.getElementById("push-nav-link");
-    if(!link)return;
-    link.textContent=subscribed?"\uD83D\uDD15 Turn Off Notifications":"\uD83D\uDD14 Turn On Notifications";
-  }
-  async function togglePushSubscription(){
-    var link=document.getElementById("push-nav-link");
-    if(!("serviceWorker" in navigator)||!("PushManager" in window)){
-      alert("Notifications aren't supported in this browser.");return;
-    }
-    try{
-      var reg=await navigator.serviceWorker.register(""+"sw.js");
-      var existing=await reg.pushManager.getSubscription();
-      if(existing){
-        var endpoint=existing.endpoint;
-        await existing.unsubscribe();
-        if(PUSH_ENDPOINT){
-          fetch(PUSH_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({formType:"pushUnsubscribe",endpoint:endpoint})}).catch(function(){});
-        }
-        updatePushNavUI(false);
-        return;
-      }
-      var permission=await Notification.requestPermission();
-      if(permission!=="granted"){
-        alert("Notifications are blocked. To turn them on, allow notifications for this site in your browser settings.");
-        return;
-      }
-      var sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:urlBase64ToUint8Array(PUSH_VAPID_KEY)});
-      if(PUSH_ENDPOINT){
-        await fetch(PUSH_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({formType:"pushSubscribe",subscription:sub.toJSON()})});
-      }
-      updatePushNavUI(true);
-    }catch(e){
-      console.error("Push subscribe/unsubscribe failed:",e);
-      alert("Something went wrong turning on notifications. Please try again.");
-    }
-  }
-  if(PUSH_VAPID_KEY&&("serviceWorker" in navigator)&&("PushManager" in window)){
-    navigator.serviceWorker.register(""+"sw.js").then(function(reg){
-      return reg.pushManager.getSubscription();
-    }).then(function(sub){ updatePushNavUI(!!sub); }).catch(function(){});
-  }
   var deferredInstallPrompt=null;
   window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
   function installApp(){
@@ -114,7 +63,6 @@
     </div>
     <ul class="nav-links" id="nav-links">
       <li class="nav-install-item"><a href="#" onclick="installApp();return false;">Install The SCA App!</a></li>
-      <li class="nav-install-item"><a href="#" id="push-nav-link" onclick="togglePushSubscription();return false;">🔔 Turn On Notifications</a></li>
       <li><a href="index.html">Home</a></li>
       <li><a href="documents.html">Documents</a></li>
       <li><a href="vendors.html">Preferred Vendors</a></li>
