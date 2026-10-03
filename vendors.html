@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Preferred Vendors - Sunnybrooke Condo Association</title>
-<link rel="stylesheet" href="style.css?v=v2.15-164"/>
+<link rel="stylesheet" href="style.css?v=v2.15-166"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="icon-192.png" type="image/png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -70,6 +70,13 @@
     navigator.serviceWorker.register(""+"sw.js").then(function(reg){
       return reg.pushManager.getSubscription();
     }).then(function(sub){ updatePushNavUI(!!sub); }).catch(function(){});
+  }
+  if("serviceWorker" in navigator){
+    navigator.serviceWorker.addEventListener("message",function(e){
+      if(e.data&&e.data.type==="push-debug"){
+        alert("PUSH DEBUG\n\nimage field sent: "+(e.data.rawData&&e.data.rawData.image||"(none)")+"\n\nresolved image URL: "+e.data.resolvedImageUrl+"\n\nshowNotification result: "+(e.data.showNotificationResult||"(pending)")+"\n\nfull opts: "+JSON.stringify(e.data.opts));
+      }
+    });
   }
   var deferredInstallPrompt=null;
   window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
