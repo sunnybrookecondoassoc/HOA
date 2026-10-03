@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Notices - Sunnybrooke Condo Association</title>
-<link rel="stylesheet" href="style.css?v=v2.15-164"/>
+<link rel="stylesheet" href="style.css?v=v2.15-166"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="icon-192.png" type="image/png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -99,6 +99,13 @@
     navigator.serviceWorker.register(""+"sw.js").then(function(reg){
       return reg.pushManager.getSubscription();
     }).then(function(sub){ updatePushNavUI(!!sub); }).catch(function(){});
+  }
+  if("serviceWorker" in navigator){
+    navigator.serviceWorker.addEventListener("message",function(e){
+      if(e.data&&e.data.type==="push-debug"){
+        alert("PUSH DEBUG\n\nimage field sent: "+(e.data.rawData&&e.data.rawData.image||"(none)")+"\n\nresolved image URL: "+e.data.resolvedImageUrl+"\n\nshowNotification result: "+(e.data.showNotificationResult||"(pending)")+"\n\nfull opts: "+JSON.stringify(e.data.opts));
+      }
+    });
   }
   var deferredInstallPrompt=null;
   window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
@@ -196,9 +203,9 @@ function togglePetForm(){
   var open=wrap.classList.toggle("open");
   if(body)body.style.display=open?"block":"none";
 }
-var PET_ADDR_CT="C2aXCQcjb9LUb4zOefJFBJ7/kFuy4o64XJ39qwLQPBmKnRIMQfc4pSA6rI7wduDn3XnzNX11bzme/sTxJOMvkVYf7qBjtc0BZpDEKBR6OPxOTDcd6CTZ4aXeTkU7jyhI6kCJAwXDvxCNNX/Ove3XzOIgHZRR0bxgx5XFGFHVjCocQPQWW7mH6RTo+wZidVlolV2S5/xuJiGQTAH8WpF3IBeie+UXy170OquPrsIA0KcRHIrofhuRp7glFrhT8FvDVqDiOywGwA5Ci2Xzsh8gXZuAXFbuEwpoQq0jyyN2EOjI/ZArlvV5s8gT0VQllq3qb5w9h+HdSSYG29fAjo/qyDotuq7p6XHIgULfhKSmecibGdYrHxhL6xGgV4yIXUh9YKJk/h6L6tJvNU2SOshGEk2Uw8ze0vcIT5LzzDOXgpCoxY3vbUOq25qedSgBvg+vWsz9JclFOdQiZ32hqyZxbEObyNz5VkAI6OYSXm1B+JoL0qBZ02IYUztk2g87B2W/NqpeLFkrWM826mVWXEtLXxTxcG0RW9jOTScPW6riTkb/dt6pVtuRikMj80JVCO5eb5bzJNnqzacLXAEfp8Wn+yxQ7htUvxO6B5Q/UEton0VwV5PFcXZP3vKV69XssjUPSjXYDN51YjmhaAXriIKBd+fQZi736G4Ap2tKh1O9PfnvhloWptpPIX+ApBufB7LzwQvMNlTOts+NzdL3drjvU1PbXNybZ9k5MAEZLxUZFZTtbeyKvvHr7WZLGVXCw/J/KrLJtYd/PoNNphG4d1kkkSJpd3Qa5nQWOSyQIbxdDxRUqf7ZB9TlyZIEbaZCShc7JyyXti/NTlCMMxjCFym14N69kk2fuA4EDd39MHIsTzsC/wUznV6bEdxvMnR2ufj1gn2rW+em+v16mGnNEKgdOpUUfyHlhDGUNCkvBY2rBAOdnh3H6aT+WNqyPWHdVr7g3S0d1wekwM/JjoEn30QPda9X3k6pUzMVzjVifis4VCmzXPmDe8+RRnxT4Mt+yo0BpHun";
-var PET_ADDR_SALT="9BbMDaIKKvGDo3vAVrAqcA==";
-var PET_ADDR_IV="U56LMjUNNwVOPsBO";
+var PET_ADDR_CT="y1GOHzC/lVvNNpaUjYgv90ld7QHIz4opH1o5FN4zmpm6VF1ro0iXrm37EgrHxDdPhVYZvFp0Yx69vkGFO4q6m7BUp49zLr1RwStoOUmtovFRnTAZyMu7jd3Sk6XhtOgtPabRo233Rzm1Dz5HmgsIus7KrZLQ4sXaXdiE/SAcvf1lqdz9fc0lmj68X97BLtU8bDctU0xiAy3uDxazTOlwHVDdlW/dAW08GEhVAgvHg1+9whcD9dmFLacxmev5cR5fyuo+sVpyma6caYlKFeVsTQd7dE6GePaEc8CBncJvF2SrKBjJBxOo0GG1nbofXSNeIH1Dnzk+hIlO1paHHawlsyp37Msrjzs5YBnoIe5qUTLet7kcbb9No4QDuVj3V4MdVvIl12ZCPF8nfYukt4Tu9698nD+L4AN7kPgAd/aQQn6KR2j3xepogJJhWxXFL6vue75xnp7D+5dG8CGX0NeFo/DcyUkBjvhbo57Vc4qFRcJ7WHx0d2+lzKolOFWpbeKFCW7vNFLBBsJZbpoQVtht0mI4dnG5XcX2cEIoUG7oUf4rcsuF4HrvoFJAEH/sOZBOYQ0o2f24itn5MvL/Mbkg8lcLV9MOYtoHmQNBQIacUUtdDPhBRUbwcraiofPVfJ+gZkn2iAYaOfg5r6ElBXsyvI3mx60PDzXSadXewveV7Ol/QUqVyaObY+vVw2G1fLDx6biUyRqE2GT95CyZCA9mHLC/FaT7qCj0kewMaxoSRPy/dt+BRtX05Yniu3s968OygTddNoUGJe6toVmlwPAuGm7JJCRA8f8m4OMtPhBq89uhepcygpXl7fESeZGDQIM4yB3lThl1eqAJ4tkVNbUao1lJcks79a0jxBLDjan9KOsahmfhC2EUIZbOzoCWMtkkNgsKrJ66TdctJnLKd8OJ7r5qMdJ3UCjI9BOsIMtKqeZx8p3B6R4X/kNLnrRL4JMiOlgXMbYe7HnD80aeXuUNuYmoB4OaarkYhTht4SkbyFbbJvIIOK6t8VNTYBWQ2pGnXfYc";
+var PET_ADDR_SALT="FmK5hIinunPOKXVQOU1Iew==";
+var PET_ADDR_IV="fxlW0iMA0qFZdSI5";
 var PET_RES_HASH="dcf2363a0ff9ca541c2a77015618c3c4bacbf4e955a3cac2b89037fe3bab4e6f";
 function b64ToU8Pet(s){var b=atob(s);var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 function togglePetPwVisibility(btn){
