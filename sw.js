@@ -4,12 +4,15 @@ self.addEventListener('push', function(event) {
   var title = data.title || "Sunnybrooke Condo Association";
   var body = data.body || '';
   var url = data.url || './notices.html';
-  event.waitUntil(self.registration.showNotification(title, {
+  var opts = {
     body: body,
     icon: './icon-192.png',
     badge: './icon-192.png',
+    vibrate: data.vibrate || [200],
     data: { url: url }
-  }));
+  };
+  if (data.image) opts.image = data.image;
+  event.waitUntil(self.registration.showNotification(title, opts));
 });
 
 self.addEventListener('notificationclick', function(event) {
