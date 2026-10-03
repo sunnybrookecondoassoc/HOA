@@ -20,25 +20,7 @@ self.addEventListener('push', function(event) {
     data: { url: url }
   };
   if (data.image) opts.image = data.image;
-  var debugInfo = {
-    type: 'push-debug',
-    rawData: data,
-    resolvedImageUrl: data.image ? new URL(data.image, self.registration.scope).href : '(none)',
-    opts: opts
-  };
-  function broadcastDebug(extra) {
-    var payload = extra ? Object.assign({}, debugInfo, extra) : debugInfo;
-    return self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(cs) {
-      cs.forEach(function(c) { c.postMessage(payload); });
-    });
-  }
-  event.waitUntil(
-    broadcastDebug().then(function() {
-      return self.registration.showNotification(title, opts)
-        .then(function(){ return broadcastDebug({ showNotificationResult: 'OK' }); })
-        .catch(function(err){ return broadcastDebug({ showNotificationResult: 'FAILED: ' + (err && err.message) }); });
-    })
-  );
+  event.waitUntil(self.registration.showNotification(title, opts));
 });
 
 self.addEventListener('notificationclick', function(event) {
