@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Notices - Sunnybrooke Condo Association</title>
-<link rel="stylesheet" href="style.css?v=v2.15-179"/>
+<link rel="stylesheet" href="style.css?v=v2.15-180"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="icon-192.png" type="image/png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -128,11 +128,12 @@
     var freshNotices = (notices||[]).filter(function(n){ var days=(n.newDays===""||n.newDays==null)?7:Number(n.newDays); return daysSince(n.publishedDate) < days; });
     var newCount = freshNotices.length;
     var hasPetAlert = freshNotices.some(function(n){ return (n.title||"").indexOf("🐾") !== -1; });
-    var badgeText = hasPetAlert ? ("🐾" + newCount) : String(newCount);
+    var hasUrgentAlert = hasPetAlert || freshNotices.some(function(n){ return n.urgentAlert === true; });
+    var badgeText = hasUrgentAlert ? ((hasPetAlert ? "🐾" : "⚠️") + newCount) : String(newCount);
     var nb = document.getElementById("notices-nav-badge");
-    if (nb && newCount > 0) { nb.textContent = badgeText; nb.style.display = "inline-block"; nb.classList.toggle("pet-alert", hasPetAlert); }
+    if (nb && newCount > 0) { nb.textContent = badgeText; nb.style.display = "inline-block"; nb.classList.toggle("urgent-alert", hasUrgentAlert); }
     var ncb = document.getElementById("notices-card-badge");
-    if (ncb && newCount > 0) { ncb.textContent = badgeText; ncb.style.display = "inline-block"; ncb.classList.toggle("pet-alert", hasPetAlert); }
+    if (ncb && newCount > 0) { ncb.textContent = badgeText; ncb.style.display = "inline-block"; ncb.classList.toggle("urgent-alert", hasUrgentAlert); }
   }).catch(function(){});
 </script>
 <nav>
@@ -196,9 +197,9 @@ function togglePetForm(){
   var open=wrap.classList.toggle("open");
   if(body)body.style.display=open?"block":"none";
 }
-var PET_ADDR_CT="29PGoMPvtP85CDfaM/SdtG8bxgE2lFyMbpZmEmll1jRusyzK42sFj/OZDAuYigRFg0dptY1hlufGjkPlCQ+drMNgSF6Q/0PI4Awg7t5nLlaBtAmXYaBGdgOdlGfx8POA8YRkBg6GOwQczZvLpFoZyWwPEnnD7FqR/pdQ2cs3I0t+1fMbCjb1qEC2wyYOIdC4keq2IYZzyABJDsmzdo0xDfquvngy4ObaCxm/1H5BEcyYF0yElTiMlIEX7YqWGnVSAI1VEszVK7FJHXYp0F78Qgh3INoyW6MJ9LWE2Gf17sgVlapmGLD4OGE+4y4D7BrNu+vYmPPZPYjy9CSvFJ0BDH1NUfkLiUOt+F4Vjga90db9JUHrw/ILFt+FpkqI/NxhhsOvI1reW+p76xquWO6FvLfHbMkbPx0eqrwCR7PBVB2cxdO4bh5P9VGosH1axuxmbzzr7qJ4aec4FTCBkFTevxnEn+uazVNLbFEEm2blsdedzvrJYpvrg5Mk+0hzRz7X3txB0UbW+VmAiOhMw622LlYf5l/NdksXdMG4z+zzHuzbvyy9IV1SUjbRQxBB5mBhP0SXldk0bylsaKGA0XxErPSS4vSUAvM162QEVSbwWd7sSjSuli5ZSGLdfZxe9lEpQAPR7Gbm9X+ufRQoNPOmkpqn8LZSUEb2HiVTv9n/senb5rMiHiD6cmZFv1eY19h12QcDMRBj9fwoHONkksPS2ERm4kylHL9sdNnoaQqMO0jcXVBbdEtiX/hc2tIImlUUB5Lut7Lb8gQGA4CWyzvoyVNao7KT4oSC7vF3B6kV7yd1ltsBVE8NyQQ52/Hp6Up0Iyp4f43NieHUjgCU2Hpb2B1h6Am0lt5prsTLn+5uOfP5nxkXXtzRItonOhKj5b74jnSKch4jwS/KpwxG1K2BupCrfgMxh24vkuhuzI0cLEZRLw1DBsGJr6OvuOcPiHm+ZKZll1K5HbuQ38xj/RmT+8UQmUYFb8NoJJiJD1P4wgU8xyYTRm8JEk3037fF5tZSzJhT";
-var PET_ADDR_SALT="qcY8blz5fyk20i7HC1kJrQ==";
-var PET_ADDR_IV="5cWRQKqdwBCPuOSX";
+var PET_ADDR_CT="5uZa+wUg6dKq21ASllDdtoaw0USutwy/R3vKP/jwnLfgEmk/16v7siLuL7mG4vaFD/RKHVXDngv5Ax3tRyZdoCV4dDhosR7C42LB5f1NDl91fGHDXqCSMQlhaUfBddVAtuP3Ob25o8sp5wrDJAme8NHAiwV39/EoopLKqXUxjDwl8ugtT1Ap6uUFK+H7pMhKL0Es5i5vC3n4TakexHOYtyQrOe0FRGXg0AYDsk1SGtjlDEnjGH+1lxSmHKRfwV0uHdMpqcqWF/aV66u/TGMcb5NNBm1rBWss1mSx63/EfpF7/1joy+Cyfx6ZuIlU/IlTU3mDvuG/c3gvEQj365h924TO7jalisMaOpONDtPLdlnrvBqrquq+imLK9Hjk+A+nhucHYNPgHslgTn5efOKXFgqrH6CNsN1QEQ8762a6Nrb/uzDO5IJD5vsje3/jqVORgo3MtttmiIYWVcwDLvt9g862y2nSozyOGCbSC7SKaz15tkLvD1N3eTD8dRSfqFhkaPBziqPpI65x7Xmi1VXDef6hyx0Dt0Yz4PLYHMr5ZiAmUXZtfkH2DYfXek52KyJQoi9p5QL1cB7z3V2XF0tV0TAAH/y9pmICBzSCS84Yg8oa5erUK1a2h5Qb1en7fKkp2CflQEtC1QHR8PmEPVrpi30znQPI7vAddeNWon92UOoE7QRIGRepeLDt5muvYDvF0Q+gnRHQ2zi+7Rxws9QoncBcMlVRFRUkYaDJUQJUKnyiGYFIIiXQnGO0vDFTLAssmpvgCM5zrBR8VZsa27p33fuQhVf+YlPhSqgPs60RTe7+oVNbInortljnwNGeFisGToQDCurs2AUtb4YesZUD6s01NAiAc/K0vnDFiSzfu3QQUgMi7Qm3WdXt9gs6Em7oXm2TtMwHVY5S7wqkW0jh/+FujKSOVyW2lYSLlpmtYyLAB3aMmS0FIhufU3rhIWCdy4PMUyOFs+O4Lo94pK2kZJ+3R+CbVDaEfVSPirD8va4TkrfQ7gozOMeBa/XCfsGzAPlo";
+var PET_ADDR_SALT="uh44MHx1wUs4Z+JOFpNjLg==";
+var PET_ADDR_IV="s9QbX/zILujd9GFa";
 var PET_RES_HASH="dcf2363a0ff9ca541c2a77015618c3c4bacbf4e955a3cac2b89037fe3bab4e6f";
 function b64ToU8Pet(s){var b=atob(s);var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 function togglePetPwVisibility(btn){
