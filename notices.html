@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Notices - Sunnybrooke Condo Association</title>
-<link rel="stylesheet" href="style.css?v=v2.15-186"/>
+<link rel="stylesheet" href="style.css?v=v2.15-187"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="icon-192.png" type="image/png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -157,8 +157,7 @@
       <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
     <ul class="nav-links" id="nav-links">
-      <li class="nav-install-item"><a href="#" onclick="installApp();return false;">Install The SCA App!</a></li>
-      <li class="nav-install-item"><a href="#" id="push-nav-link" onclick="togglePushSubscription();return false;">🔔 Turn On Notifications</a></li>
+      <li class="nav-utility-row"><a href="#" onclick="installApp();return false;">Install The SCA App!</a><a href="#" id="push-nav-link" onclick="togglePushSubscription();return false;">🔔 Turn On Notifications</a></li>
       <li><a href="index.html">Home</a></li>
       <li><a href="documents.html">Documents</a></li>
       <li><a href="vendors.html">Preferred Vendors</a></li>
@@ -212,9 +211,9 @@ function togglePetForm(){
   var open=wrap.classList.toggle("open");
   if(body)body.style.display=open?"block":"none";
 }
-var PET_ADDR_CT="b3AY4USinj/xe/Ou+49KUUhxY0g0LGmiZp48/h4WjcZ+oQSFoUzjvhdGca5LxADbKjHcwGeHboaOMwtWExd6mPwnpqBXbyffc4QkFy2cLS3iTbrsPJoS4hkaB5uY7noVUSN8Rg/Dp8+ZlFgp/NGL2DGE6Ly/uI+mojhkdYWn9WOMC+NaBxFGpD9QZFzbDfaG4iJQ/X2bPgAELUthiXg1SiSce2fns4lfWD4w+5wxtsugzRjda1nvV7XjykAUNGSWH3cZQBW3x0iLHUHMDrQDE1bblV09HE81lo/f1p3xfhd4Ln+2+I/KRV1bijfotQKQfNXnZd8I9Dko8cS64v3lhASBdT2xyW9eyoCkuDlsSjcVTb+2+dle56o4nqTqlzR8OEST8k3mp8RyPUZKcyYNgiViHuVjvhSnuHRoznZEK3W1u5Klpek8GS90YFqUXAJxWMaKQfVIxTLGXdnPlGMf2vRU8lwFo3dXyodPpqgPEn0d3+bnxUt2KL5gbtaHEfNsJpOsXDsUjSqNgi4fCxCRgcMqDAUH9pVqEWLUJA18yQ2ECn18bQNDTkALWLPgcVqX6cK8FfU9KmrXu9OeuB6VFCvqs/8abYAe35/dDoSR4tAjYgiJ6et6aTUqE2mP68fNWFO093GcI/JogdleifWvZZ1lDyypGVUUbyjgUgn5uWQdFbrg3xdPvmapy5ESbHYG0XTEZV+4NyOP7AxtrmJbMS4QslCIH7A+iDnVGOPLC2YETJRFRn4MUWs/CZrtZJDs/5LYvy4sXoLeyImdUmJOveP1KJ30hQDeSxtwKaJcGAgP4B0c7313hrdjLy6qipd1Q1UDU9ZG+tTyYv/pDY69DB7fw0qNtPiNGxnzgDYmjON0cEzpnxQN+mB6g52U4lRKdv146LRbcM8cQ2Q5ywYyfC74/Tih/GFAu7pEfLw9dN6JPfBUp/xylWLIQenGwwExZ7TaaY2sXE8K5zHsebaBi+VnB5za8iEwQWL201CP3kG8xAL74CTno7Ye3qKtDoraNL7W";
-var PET_ADDR_SALT="OJtix96b4uitlSnMGwbH1w==";
-var PET_ADDR_IV="eRuGzFHy+vZAEv/+";
+var PET_ADDR_CT="ivQQvaPwUwcCLhIoHHdYNDddmjGyj8jGV3XnH+b2lxrbg43CbGLOjXnvyBffppUApYM9XUceQ7HNJf8uMCmKoavw9Izyv52RQq8vNl7n8de4Te9+UFck9DzIHBYj6mmtRiW6Hqisa8Bw6ARMsFTlk0c2ZIIN/9OWacj6rM7AhRsLrZU0o3ILWwTDLC0DQC3XwxivH2JpbwnbiurNKUo8uRH/NHBjLnEOsAO56UoK3xy5yzfcHdirPilOgtIjXWTFGs9PIBdXLJdxYPDmoE+F/dOJclm/ggmZBNs5ilMyZZEBBgZWVqjeWQ81T4isPzInytsGhuiAp5asl9EImDrgPAFtDbV1s+GL8GJcjhCfOi5BNICk49ZHWEHRSEu57CP2wMAEEIVR5z5neIf6YTChF6xwIKkBMd9y8VHmyLgeYexP6KJ4UzTaGmY1y002KrwR1/CzXYfXX4vDLmykHOG+NlWbGmlftlYaDXz+GulxvN99BmhGMODmApKEE1Kyn/g1D4fs1uI+OpAaNjy0rdj21N2igI+09z3Dcqe+SaTzMC7HQDcWLSYs4udUzmJJ/Nk3+erlJpRHaBS5Bz2lYjBpcKg969a1vOM7vaeyKgqDFH0eg+UuvEcnukVdcnAk4ziqAzqKJ16NZHCzvSQO4z+6v4O5iA9PCnzByWRg5fYbi8akI1iIihh6ZmrzP2IRtCbnlPa1PgRZeCd+6IiFLkB+OCZV70l83pRggUBg7GBOHLCQHB2lNOA/kd9uVEbS7X2cRMTkJXLUKBp64pFcNeVZYwHjab4YScWHn50EH0bNQ0890g/f+aK4miAD+8bKo8iHSytrobFAakoWhtC9i77Wj5qDIKcvQP3muDmck+CeX86vHhr8b+zmChCuX3uW2ELdO+UlxIAKf7USWxmgkWir8wWQ5/FdkMaFLBgBrSWUVcJeG88TEHfaAz9ecayZ6n0KFgJi1AIQEtc1JQhXcelq4uR6xbTIR8q1BPqBmfnB4aLk22tu61xG1tGOtG/WqBpCytgJ";
+var PET_ADDR_SALT="LCwvPkKSjtLg3TQqaMA76Q==";
+var PET_ADDR_IV="ANn5X0dFX2uPIBDT";
 var PET_RES_HASH="dcf2363a0ff9ca541c2a77015618c3c4bacbf4e955a3cac2b89037fe3bab4e6f";
 function b64ToU8Pet(s){var b=atob(s);var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 function togglePetPwVisibility(btn){
