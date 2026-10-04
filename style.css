@@ -176,4 +176,9 @@ footer a,footer a:visited,footer a:link{color:rgba(255,255,255,0.8);text-decorat
   .update-row-grid{grid-template-columns:1fr;gap:0.4rem}
   .update-row-grid select,.update-row-grid input{width:100%;box-sizing:border-box}
 }
+@media(min-width:769px) and (max-width:1024px){
+  .nav-links{flex-wrap:wrap;row-gap:0.3rem}
+  .nav-install-item{display:block!important}
+  .nav-install-item a{text-decoration:underline!important;font-weight:700}
+}
 /* WIZARD-DATA:{"version":1,"file":"style.css","data":{"theme":"gradient","tweaks":{"heroOpacity":0.7,"overlayTop":0.15,"overlayBottom":0.25,"heroAspectRatio":3,"cardRadius":10}}} */
