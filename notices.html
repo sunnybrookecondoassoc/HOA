@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Notices - Sunnybrooke Condo Association</title>
-<link rel="stylesheet" href="style.css?v=v2.15-184"/>
+<link rel="stylesheet" href="style.css?v=v2.15-186"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="icon-192.png" type="image/png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -47,7 +47,17 @@
 <body>
 
 
+<div id="iab-warning-banner" style="display:none;background:#8a6400;color:#fff;text-align:center;padding:0.55rem 1rem;font-size:0.82rem;line-height:1.5;">⚠️ You’re viewing this inside an app’s built-in browser (common when a link is opened from Facebook, Instagram, or Messenger), which can’t add this site to your home screen. Tap the <strong>⋯</strong> or <strong>Share</strong> icon above and choose <strong>Open in Safari</strong> (iPhone/iPad) or <strong>Open in Chrome</strong> (Android), then try installing again from there.</div>
 <script>
+  function isInAppBrowserUA(ua){
+    return /FBAN|FBAV|FB_IAB|Instagram|Line\/|MicroMessenger|Messenger/i.test(ua||"");
+  }
+  (function(){
+    if(isInAppBrowserUA(navigator.userAgent)){
+      var b=document.getElementById("iab-warning-banner");
+      if(b)b.style.display="block";
+    }
+  })();
   function toggleMenu(){var nl=document.getElementById("nav-links");if(nl)nl.classList.toggle("open");}
   var PUSH_VAPID_KEY="BH2XQO9rCf7PpZlJxnveI53IXX0O65ulvsQERD2rD1Qlta3vrpREY7ZB8EspgINgT_XpBnA-PA61zxUSmttNBCQ";
   var PUSH_ENDPOINT="https://sunnybrooke-forms-v2.sunnybrookeca.workers.dev";
@@ -103,6 +113,10 @@
   var deferredInstallPrompt=null;
   window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
   function installApp(){
+    if(isInAppBrowserUA(navigator.userAgent)){
+      alert("This opened inside an app's built-in browser, which can't install apps to your home screen. Tap the \u22EF or Share icon above and choose \"Open in Safari\" (iPhone/iPad) or \"Open in Chrome\" (Android), then tap Install again from there.");
+      return;
+    }
     var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
     if(isIOS){
       alert("To install: tap the Share icon, then \"Add to Home Screen\".");
@@ -198,9 +212,9 @@ function togglePetForm(){
   var open=wrap.classList.toggle("open");
   if(body)body.style.display=open?"block":"none";
 }
-var PET_ADDR_CT="cg8iq9NtfpGijDwGOefSTGMNvsmgXyK97ET54ZWKUyH8NEcH67nFXKzH3waec/fwUfWc/JDuTYJvzXOTG50SwhfEys5mCSmZOKuWzUstBjH0QsIBB5ZOqemJl8i8W8SwFkIicUgFj7XvvKfTzmIv2GDiLETx3XsCk8T345h8UmC8IHijemMyKEnB2+9v/DxzB58z2SZR5yi7ZNqKlzOSSfxqMUBuk9ZHFNlvtgDgVSBY/69xeNRTahuDtTYw8EPTnZIlnmZuA4xwW5CVvRsKWkv01isHeI+mHnBy8oAUSNbVL2Pcw/1FVZKZMFB+pQtAGJRQATMLCsbwxLE2YX51ATav1F0amk+QMSNe0Ti0RZwbPxcwGlTCsvDzSYYr1jtjaRQXUvOJkVgcRDSeJiLjhAgny1ewPrTf0IqLCD3Y0bHAmNFHw5GMh6x6zOKJ7orirCSWeBZpdfRDTpLmqFZ8rRvDpK7qcKvFCOY3UwPEW7Dn+GTT+KLsnPS8ZnH9LnDJLclIieJCmr77PKyUJwGFx20EsyMsgY1KzR/mdJFRCxP+Oe7+3RfF5y/K0o0ln/mHAo6DMwTTIQdf1erGoLVLzpN5MDrRDvmdeiGzlaqN+nK4c1S+MxcF4PRMCslYmSoX2muyBKB0NcFJ0WADNGHQdvjbfLEuLV6IV9RtYUfeM/2SIm1aqgGIsrALGKCXfKWhTB0RArZLmKmPVkMgyBqFS9PhEIzBHoqFUcX/F/zsoQYRRDxowVGqunG2aI5NTu7+vyoT1KCNXkk9L5iTmu0GzG2PwffBjiYwJCXcoC8g0AanWNVWt+7FOlH/TNVQoO7lmhVFgtkBI6H9go6iDerb5KW1lcJYcGhAYHfprETaA/nixctSL0lpJMDAmpYiTL4a2XgT1Tv2pemhxez5qdrwyaoBJQfhgBKYz0x94XOe6xXF2+Zq8tYF6BK2d/7LBJFG2sf2KWQJlmP79VvqngjmUzGOHQfO/74jueopCvHGJkbannmLSQN95lPzpg+aSTi/vdZw";
-var PET_ADDR_SALT="yg1om+U14ZviJU2eiglyMA==";
-var PET_ADDR_IV="M8hnkgsVQ7hxVk09";
+var PET_ADDR_CT="b3AY4USinj/xe/Ou+49KUUhxY0g0LGmiZp48/h4WjcZ+oQSFoUzjvhdGca5LxADbKjHcwGeHboaOMwtWExd6mPwnpqBXbyffc4QkFy2cLS3iTbrsPJoS4hkaB5uY7noVUSN8Rg/Dp8+ZlFgp/NGL2DGE6Ly/uI+mojhkdYWn9WOMC+NaBxFGpD9QZFzbDfaG4iJQ/X2bPgAELUthiXg1SiSce2fns4lfWD4w+5wxtsugzRjda1nvV7XjykAUNGSWH3cZQBW3x0iLHUHMDrQDE1bblV09HE81lo/f1p3xfhd4Ln+2+I/KRV1bijfotQKQfNXnZd8I9Dko8cS64v3lhASBdT2xyW9eyoCkuDlsSjcVTb+2+dle56o4nqTqlzR8OEST8k3mp8RyPUZKcyYNgiViHuVjvhSnuHRoznZEK3W1u5Klpek8GS90YFqUXAJxWMaKQfVIxTLGXdnPlGMf2vRU8lwFo3dXyodPpqgPEn0d3+bnxUt2KL5gbtaHEfNsJpOsXDsUjSqNgi4fCxCRgcMqDAUH9pVqEWLUJA18yQ2ECn18bQNDTkALWLPgcVqX6cK8FfU9KmrXu9OeuB6VFCvqs/8abYAe35/dDoSR4tAjYgiJ6et6aTUqE2mP68fNWFO093GcI/JogdleifWvZZ1lDyypGVUUbyjgUgn5uWQdFbrg3xdPvmapy5ESbHYG0XTEZV+4NyOP7AxtrmJbMS4QslCIH7A+iDnVGOPLC2YETJRFRn4MUWs/CZrtZJDs/5LYvy4sXoLeyImdUmJOveP1KJ30hQDeSxtwKaJcGAgP4B0c7313hrdjLy6qipd1Q1UDU9ZG+tTyYv/pDY69DB7fw0qNtPiNGxnzgDYmjON0cEzpnxQN+mB6g52U4lRKdv146LRbcM8cQ2Q5ywYyfC74/Tih/GFAu7pEfLw9dN6JPfBUp/xylWLIQenGwwExZ7TaaY2sXE8K5zHsebaBi+VnB5za8iEwQWL201CP3kG8xAL74CTno7Ye3qKtDoraNL7W";
+var PET_ADDR_SALT="OJtix96b4uitlSnMGwbH1w==";
+var PET_ADDR_IV="eRuGzFHy+vZAEv/+";
 var PET_RES_HASH="dcf2363a0ff9ca541c2a77015618c3c4bacbf4e955a3cac2b89037fe3bab4e6f";
 function b64ToU8Pet(s){var b=atob(s);var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 function togglePetPwVisibility(btn){
