@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Events - Sunnybrooke Condo Association</title>
-<link rel="stylesheet" href="style.css?v=v2.15-184"/>
+<link rel="stylesheet" href="style.css?v=v2.15-186"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="icon-192.png" type="image/png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -18,7 +18,17 @@
 <body>
 
 
+<div id="iab-warning-banner" style="display:none;background:#8a6400;color:#fff;text-align:center;padding:0.55rem 1rem;font-size:0.82rem;line-height:1.5;">⚠️ You’re viewing this inside an app’s built-in browser (common when a link is opened from Facebook, Instagram, or Messenger), which can’t add this site to your home screen. Tap the <strong>⋯</strong> or <strong>Share</strong> icon above and choose <strong>Open in Safari</strong> (iPhone/iPad) or <strong>Open in Chrome</strong> (Android), then try installing again from there.</div>
 <script>
+  function isInAppBrowserUA(ua){
+    return /FBAN|FBAV|FB_IAB|Instagram|Line\/|MicroMessenger|Messenger/i.test(ua||"");
+  }
+  (function(){
+    if(isInAppBrowserUA(navigator.userAgent)){
+      var b=document.getElementById("iab-warning-banner");
+      if(b)b.style.display="block";
+    }
+  })();
   function toggleMenu(){var nl=document.getElementById("nav-links");if(nl)nl.classList.toggle("open");}
   var PUSH_VAPID_KEY="BH2XQO9rCf7PpZlJxnveI53IXX0O65ulvsQERD2rD1Qlta3vrpREY7ZB8EspgINgT_XpBnA-PA61zxUSmttNBCQ";
   var PUSH_ENDPOINT="https://sunnybrooke-forms-v2.sunnybrookeca.workers.dev";
@@ -74,6 +84,10 @@
   var deferredInstallPrompt=null;
   window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
   function installApp(){
+    if(isInAppBrowserUA(navigator.userAgent)){
+      alert("This opened inside an app's built-in browser, which can't install apps to your home screen. Tap the \u22EF or Share icon above and choose \"Open in Safari\" (iPhone/iPad) or \"Open in Chrome\" (Android), then tap Install again from there.");
+      return;
+    }
     var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
     if(isIOS){
       alert("To install: tap the Share icon, then \"Add to Home Screen\".");
