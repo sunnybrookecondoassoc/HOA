@@ -6,6 +6,7 @@
     "link": "",
     "photo": "",
     "publishedDate": "2026-09-29",
-    "newDays": 7
+    "newDays": 7,
+    "urgentAlert": false
   }
 ]
