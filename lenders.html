@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Lenders & Realtors - Sunnybrooke Condo Association</title>
-<link rel="stylesheet" href="style.css?v=v2.15-187"/>
+<link rel="stylesheet" href="style.css?v=v2.15-188"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="icon-192.png" type="image/png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -46,6 +46,10 @@
   }
   async function togglePushSubscription(){
     var link=document.getElementById("push-nav-link");
+    var isIOSNoInstall=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!(window.navigator.standalone===true||(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches));
+    if(isIOSNoInstall){
+      alert("On iPhone/iPad, notifications only work after the app is installed to your Home Screen. Tap \"Install The App!\" above first, then come back and tap this again.");return;
+    }
     if(!("serviceWorker" in navigator)||!("PushManager" in window)){
       alert("Notifications aren't supported in this browser.");return;
     }
