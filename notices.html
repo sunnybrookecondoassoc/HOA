@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Notices - Sunnybrooke Condo Association</title>
-<link rel="stylesheet" href="style.css?v=v2.15-206"/>
+<link rel="stylesheet" href="style.css?v=v2.15-207"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="icon-192.png" type="image/png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -78,6 +78,30 @@ function pushPostSubscription(sub, unit) {
     var body = { formType: 'pushSubscribe', subscription: sub.toJSON ? sub.toJSON() : sub };
     if (unit) body.unit = { street: unit.street, address: unit.address };
     return fetch(PUSH_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  }
+function pushQueueDelete(endpoint) {
+    try {
+      var q = JSON.parse(localStorage.getItem('hoa_push_pending_del') || '[]');
+      if (q.indexOf(endpoint) === -1) q.push(endpoint);
+      localStorage.setItem('hoa_push_pending_del', JSON.stringify(q));
+    } catch (e) {}
+  }
+function pushFlushDeletes() {
+    if (!PUSH_ENDPOINT) return Promise.resolve(true);
+    var q = [];
+    try { q = JSON.parse(localStorage.getItem('hoa_push_pending_del') || '[]'); } catch (e) {}
+    if (!q.length) return Promise.resolve(true);
+    return Promise.all(q.map(function (ep) {
+      return fetch(PUSH_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ formType: 'pushUnsubscribe', endpoint: ep }) })
+        .then(function (r) { return r.ok ? ep : null; }, function () { return null; });
+    })).then(function (done) {
+      try {
+        var left = q.filter(function (ep) { return done.indexOf(ep) === -1; });
+        if (left.length) localStorage.setItem('hoa_push_pending_del', JSON.stringify(left));
+        else localStorage.removeItem('hoa_push_pending_del');
+      } catch (e) {}
+      return done.indexOf(null) === -1;
+    });
   }
 function pushAskUnit(confirmLabel) {
     return new Promise(function (resolve) {
@@ -193,12 +217,12 @@ function pushOfferUnit(sub) {
       if(existing){
         var endpoint=existing.endpoint;
         await existing.unsubscribe();
-        if(PUSH_ENDPOINT){
-          fetch(PUSH_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({formType:"pushUnsubscribe",endpoint:endpoint})}).catch(function(){});
-        }
+        pushQueueDelete(endpoint);
         updatePushNavUI(false);
+        await pushFlushDeletes();
         return;
       }
+      await pushFlushDeletes();
       var unit=null;
       if(Object.keys(PUSH_UNITS).length){
         unit=pushSavedUnit();
@@ -221,7 +245,7 @@ function pushOfferUnit(sub) {
   if(PUSH_VAPID_KEY&&("serviceWorker" in navigator)&&("PushManager" in window)){
     navigator.serviceWorker.register(""+"sw.js").then(function(reg){
       return reg.pushManager.getSubscription();
-    }).then(function(sub){ updatePushNavUI(!!sub); pushOfferUnit(sub); }).catch(function(){});
+    }).then(function(sub){ updatePushNavUI(!!sub); pushOfferUnit(sub); pushFlushDeletes(); }).catch(function(){});
   }
   var deferredInstallPrompt=null;
   window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
@@ -324,9 +348,9 @@ function togglePetForm(){
   var open=wrap.classList.toggle("open");
   if(body)body.style.display=open?"block":"none";
 }
-var PET_ADDR_CT="oeRJcAF6XywMJKEFu71IENOiQKMwlzNJc+vdLlH8g/uI0r1QdxTgjVr+lycSnfPBhAr5BRF3EttnzXIKP1yrF1yYr06YsfaalsIm/9qgWpJanN6JbTmRqbzE6mNQ/d2CmafQIo78fDiWa547skFadw3sBpljmfUvCmVdesKxdWgAEewP7tbV2JbF9rkHsn6nbwdiW18wt2kketSldwI49TbIztBO7J+j/Y/NHz4rfukKrkEaXry9+A94K2VGZ+o6+E9E76IDo+Hiwi6IHsCKh3eYwSPG+hWCe+AU+bE31CNzidYrOGoQvNAtEtCBpGIVS5o04lOHpAiUb2L5hPiaPTMLZtj7D3aPaqUou546TViOJOsp3qa+1K3GyBRY6Q6GBUL4sMipcgbdFC9GRRX+/1TELgBnWbdv9vuV1dmbK+KyKqMUtsd0YKxsALMOQspXtsO2ptNlMKTScnzpx/yOBlelhmnkAWbXt7cQh/pVXsseGi4YjtYZxQFa9qdGkKhcaFQzkD/0LdZFJdXTmzeZkIDtTyvqMj7htCcpVZ0gWAZIBI2Bw/NQnCPcJAa+8Op5XqwFMCmRTW8v1VFb+wPISsdqbkaW0Tshg0UBlxXfbEdoe7bRjIbXYZF60ICqS+RkaBkkU+jZSxlvK2rZjnsrpNSlcOv57VkI2Ha48O6PmcgMTQdu9pKWokGYII1Yq4WRJSfnN4GZrq71qg/PhPuX5xLZ3Ey7hg8VmU2IV0jdZu8oUvjaRrN0DivXGH32QslKwicNn/1qJEwXGXDccwgb0cJOMDlz1HFQ7O1awiYsimsbSM9WwNskBhCQEQ8Tdka42dEp+kZ/7kNP6w+8XSmnIYFDZNUFSSqViJnZChBjzBqU08FTQgSI5bDhXqmbgcA98qGf+jQKOqH7jK92iTqL/pW4yNbKQNgc2vggSuzizn84kpEZ7a08e7XlsPQqIYOLHIEitqSPo2/rpzmUWEE7fL/1BkMTqn1ghj6YkMLPNwsvl7zJaBnknX+/Jsr3dwPDFKlX";
-var PET_ADDR_SALT="TPyyuJ5AoJwtMUYyk5eSZw==";
-var PET_ADDR_IV="goDWYgTeNMcC7ouY";
+var PET_ADDR_CT="w2MLzVCVZniWezxm3z5Abs8rJMnZtyWxuiNFDCLcjhfwe0MlmTw0rerSyi28rNv+RK8rmx1/mnBL8j38OWRHMvLY0U3+uG9R2H6V2Kds8Kh4YkHwbIHm2k0rKzDlafCr3Rsl5qCRMTo7xC2LfdMXBqLD73ZeWJLxo43geMoBhaOpDeWNgt8qufL+XmpOIfGdJC844RzDKg0m5MFBxQIdrB/YsE6kFSVzmUSjU/trNTPGS/xb/yQ61c53k2gxg9r2P8lmQqO5w0avtge65IuY+vVyMQjWeawzxwt1I7ruzO/UV187qidQ7VUfn9bcMIFlyqybM+vQ1k/B3xuVd0pfNl0ky/eEArxxTmCn+AWS4Y3yl5nMJji3oI5I0m4xzhT3xcrvGPbCyFfLdQtKP95uWOxj+vtcu4zvk3EbE1Px5MACALI1yWUgD54cTqCwdKlACZiSz3YDrGAP6a8fOoEx0hV9CXvmevuhzxCiaIZmKRBTHAmoDQciTqBaL1eGe4gZwFGqD6HR1VRTDAgB6vXgUWEeZqvoKGfv+73Owo2LsyXAKIDKOKUf0PqaJJ6N2+dbBF3DwSin/iBzyUQCff5dyKnEx+YbQT9o7oWY+RkQSDjteySKVYntQhmuyVKOwl/Rhvsok6WyaKIIiEuLj+e2yg3AX3IeEjvqdKieKoU5QIMlK/2WrrWHXIZ9wMACOOr5njr1EioKF2xWi4g+rPmrNXd/RjgzR6dU198DW14HBz4jwsBP2Ga+rWXOsp4egbpI1Eg/drRU/fSxpoNM13blpLHFXYgHyS7x4O+6lUdu0M1KnEosIDBwlVsHFsnwPVKMSMaVIpF4Zz9w/ZRI3MgDXWJUdIui4XI4ye8dDH8bDhQjMxBuhb3/VOcJaNnc9gbNvB04zN/fCyMvLZ2uHIzKrMNrV0MZcDwmNKgW/74vJfQUzLtLRfGU6WsdrHkBvhGKtwrH7g7jew1kn/At9Ju5qc/ha4eUlHK1JLvayprzTl8fPQeyEsTzqshT6rJB0nUvil3O";
+var PET_ADDR_SALT="WPSb32iBYgTL/0MhYTnL5w==";
+var PET_ADDR_IV="mKBylfWReWGKCM4V";
 var PET_RES_HASH="dcf2363a0ff9ca541c2a77015618c3c4bacbf4e955a3cac2b89037fe3bab4e6f";
 function b64ToU8Pet(s){var b=atob(s);var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 function togglePetPwVisibility(btn){
