@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Lenders & Realtors - Sunnybrooke Condo Association</title>
-<link rel="stylesheet" href="style.css?v=v2.15-206"/>
+<link rel="stylesheet" href="style.css?v=v2.15-207"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="icon-192.png" type="image/png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -49,6 +49,30 @@ function pushPostSubscription(sub, unit) {
     var body = { formType: 'pushSubscribe', subscription: sub.toJSON ? sub.toJSON() : sub };
     if (unit) body.unit = { street: unit.street, address: unit.address };
     return fetch(PUSH_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  }
+function pushQueueDelete(endpoint) {
+    try {
+      var q = JSON.parse(localStorage.getItem('hoa_push_pending_del') || '[]');
+      if (q.indexOf(endpoint) === -1) q.push(endpoint);
+      localStorage.setItem('hoa_push_pending_del', JSON.stringify(q));
+    } catch (e) {}
+  }
+function pushFlushDeletes() {
+    if (!PUSH_ENDPOINT) return Promise.resolve(true);
+    var q = [];
+    try { q = JSON.parse(localStorage.getItem('hoa_push_pending_del') || '[]'); } catch (e) {}
+    if (!q.length) return Promise.resolve(true);
+    return Promise.all(q.map(function (ep) {
+      return fetch(PUSH_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ formType: 'pushUnsubscribe', endpoint: ep }) })
+        .then(function (r) { return r.ok ? ep : null; }, function () { return null; });
+    })).then(function (done) {
+      try {
+        var left = q.filter(function (ep) { return done.indexOf(ep) === -1; });
+        if (left.length) localStorage.setItem('hoa_push_pending_del', JSON.stringify(left));
+        else localStorage.removeItem('hoa_push_pending_del');
+      } catch (e) {}
+      return done.indexOf(null) === -1;
+    });
   }
 function pushAskUnit(confirmLabel) {
     return new Promise(function (resolve) {
@@ -164,12 +188,12 @@ function pushOfferUnit(sub) {
       if(existing){
         var endpoint=existing.endpoint;
         await existing.unsubscribe();
-        if(PUSH_ENDPOINT){
-          fetch(PUSH_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({formType:"pushUnsubscribe",endpoint:endpoint})}).catch(function(){});
-        }
+        pushQueueDelete(endpoint);
         updatePushNavUI(false);
+        await pushFlushDeletes();
         return;
       }
+      await pushFlushDeletes();
       var unit=null;
       if(Object.keys(PUSH_UNITS).length){
         unit=pushSavedUnit();
@@ -192,7 +216,7 @@ function pushOfferUnit(sub) {
   if(PUSH_VAPID_KEY&&("serviceWorker" in navigator)&&("PushManager" in window)){
     navigator.serviceWorker.register(""+"sw.js").then(function(reg){
       return reg.pushManager.getSubscription();
-    }).then(function(sub){ updatePushNavUI(!!sub); pushOfferUnit(sub); }).catch(function(){});
+    }).then(function(sub){ updatePushNavUI(!!sub); pushOfferUnit(sub); pushFlushDeletes(); }).catch(function(){});
   }
   var deferredInstallPrompt=null;
   window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
