@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Contact - Sunnybrooke Condo Association</title>
-<link rel="stylesheet" href="style.css?v=v2.15-204"/>
+<link rel="stylesheet" href="style.css?v=v2.15-205"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="icon-192.png" type="image/png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -32,6 +32,111 @@
   function toggleMenu(){var nl=document.getElementById("nav-links");if(nl)nl.classList.toggle("open");}
   var PUSH_VAPID_KEY="BH2XQO9rCf7PpZlJxnveI53IXX0O65ulvsQERD2rD1Qlta3vrpREY7ZB8EspgINgT_XpBnA-PA61zxUSmttNBCQ";
   var PUSH_ENDPOINT="https://sunnybrooke-forms-v2.sunnybrookeca.workers.dev";
+  var PUSH_UNITS={"Sunnybrooke Drive":["1 Sunnybrooke Drive","2 Sunnybrooke Drive","3 Sunnybrooke Drive","5 Sunnybrooke Drive","7 Sunnybrooke Drive","9 Sunnybrooke Drive","11 Sunnybrooke Drive","12 Sunnybrooke Drive","13 Sunnybrooke Drive","14 Sunnybrooke Drive","15 Sunnybrooke Drive","16 Sunnybrooke Drive","17 Sunnybrooke Drive","18 Sunnybrooke Drive","19 Sunnybrooke Drive","20 Sunnybrooke Drive","21 Sunnybrooke Drive","22 Sunnybrooke Drive","23 Sunnybrooke Drive","24 Sunnybrooke Drive"],"Morgan Way":["1 Morgan Way","2 Morgan Way","3 Morgan Way","4 Morgan Way","5 Morgan Way","6 Morgan Way","7 Morgan Way","8 Morgan Way","9 Morgan Way","10 Morgan Way","11 Morgan Way","12 Morgan Way","13 Morgan Way","14 Morgan Way","15 Morgan Way","16 Morgan Way","20 Morgan Way"]};
+function pushSavedUnit() {
+    try {
+      var u = JSON.parse(localStorage.getItem('hoa_push_unit') || 'null');
+      if (u && typeof u.street === 'string' && typeof u.address === 'string'
+          && PUSH_UNITS[u.street] && PUSH_UNITS[u.street].indexOf(u.address) !== -1) return u;
+    } catch (e) {}
+    return null;
+  }
+function pushSaveUnit(unit) {
+    try { localStorage.setItem('hoa_push_unit', JSON.stringify({ street: unit.street, address: unit.address })); } catch (e) {}
+  }
+function pushPostSubscription(sub, unit) {
+    if (!PUSH_ENDPOINT) return Promise.resolve();
+    var body = { formType: 'pushSubscribe', subscription: sub.toJSON ? sub.toJSON() : sub };
+    if (unit) body.unit = { street: unit.street, address: unit.address };
+    return fetch(PUSH_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  }
+function pushAskUnit(confirmLabel) {
+    return new Promise(function (resolve) {
+      var streets = Object.keys(PUSH_UNITS);
+      var wrap = document.createElement('div');
+      wrap.id = 'push-unit-modal';
+      wrap.setAttribute('role', 'dialog');
+      wrap.setAttribute('aria-modal', 'true');
+      wrap.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:100000;display:flex;align-items:center;justify-content:center;padding:1rem;';
+      var card = document.createElement('div');
+      card.style.cssText = 'background:#fff;color:#222;border-radius:12px;max-width:380px;width:100%;padding:1.25rem;font-family:inherit;box-shadow:0 8px 32px rgba(0,0,0,0.35);';
+      function add(tag, css, text) { var e = document.createElement(tag); e.style.cssText = css; if (text) e.textContent = text; card.appendChild(e); return e; }
+      var labelCss = 'display:block;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:#666;margin-bottom:0.25rem;';
+      var selCss = 'width:100%;padding:0.55rem;font-size:1rem;border:1px solid #bbb;border-radius:6px;margin-bottom:0.7rem;background:#fff;color:#222;';
+      add('div', 'font-size:1.05rem;font-weight:700;margin-bottom:0.4rem;', 'Which home is this phone for?');
+      add('div', 'font-size:0.85rem;line-height:1.5;color:#555;margin-bottom:0.9rem;', 'Only the board sees this. It helps us make sure every household that wants alerts has them, and offer a hand to anyone who needs help getting set up.');
+      add('label', labelCss, 'Street');
+      var streetSel = add('select', selCss);
+      add('label', labelCss, 'Address');
+      var addrSel = add('select', selCss);
+      function fill(sel, items, placeholder) {
+        sel.innerHTML = '';
+        var o = document.createElement('option'); o.value = ''; o.textContent = placeholder; sel.appendChild(o);
+        items.forEach(function (t) { var op = document.createElement('option'); op.value = t; op.textContent = t; sel.appendChild(op); });
+      }
+      var row = add('div', 'display:flex;gap:0.6rem;margin-top:0.4rem;');
+      var cancelBtn = document.createElement('button'); cancelBtn.type = 'button'; cancelBtn.textContent = 'Cancel';
+      cancelBtn.style.cssText = 'flex:1;padding:0.65rem;font-size:0.95rem;border:1px solid #bbb;border-radius:8px;background:#fff;color:#333;cursor:pointer;';
+      var okBtn = document.createElement('button'); okBtn.type = 'button'; okBtn.textContent = confirmLabel || 'Continue';
+      okBtn.style.cssText = 'flex:2;padding:0.65rem;font-size:0.95rem;font-weight:700;border:none;border-radius:8px;background:#1a2a4a;color:#fff;cursor:pointer;';
+      row.appendChild(cancelBtn); row.appendChild(okBtn);
+      function refresh() {
+        var ready = !!(streetSel.value && addrSel.value);
+        okBtn.disabled = !ready; okBtn.style.opacity = ready ? '1' : '0.45'; okBtn.style.cursor = ready ? 'pointer' : 'not-allowed';
+      }
+      function loadAddresses() {
+        var list = (PUSH_UNITS[streetSel.value] || []).slice().sort(function (a, b) { return a.localeCompare(b, undefined, { numeric: true }); });
+        fill(addrSel, list, streetSel.value ? 'Choose your address' : 'Choose your street first');
+        addrSel.disabled = !streetSel.value;
+        refresh();
+      }
+      fill(streetSel, streets.slice().sort(), 'Choose your street');
+      if (streets.length === 1) streetSel.value = streets[0];
+      streetSel.onchange = loadAddresses;
+      addrSel.onchange = refresh;
+      loadAddresses();
+      function onKey(e) { if (e.key === 'Escape') finish(null); }
+      function finish(v) {
+        document.removeEventListener('keydown', onKey);
+        if (wrap.parentNode) wrap.parentNode.removeChild(wrap);
+        resolve(v);
+      }
+      document.addEventListener('keydown', onKey);
+      cancelBtn.onclick = function () { finish(null); };
+      okBtn.onclick = function () { if (streetSel.value && addrSel.value) finish({ street: streetSel.value, address: addrSel.value }); };
+      wrap.onclick = function (e) { if (e.target === wrap) finish(null); };
+      wrap.appendChild(card);
+      document.body.appendChild(wrap);
+    });
+  }
+function pushOfferUnit(sub) {
+    try {
+      if (!sub || !Object.keys(PUSH_UNITS).length || pushSavedUnit()) return;
+      var snooze = parseInt(localStorage.getItem('hoa_push_unit_snooze') || '0', 10);
+      if (snooze && Date.now() - snooze < 14 * 86400000) return;
+      if (document.getElementById('push-unit-banner')) return;
+      setTimeout(function () {
+        if (document.getElementById('push-unit-banner')) return;
+        var bar = document.createElement('div');
+        bar.id = 'push-unit-banner';
+        bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#1a2a4a;color:#fff;padding:0.7rem 1rem;font-size:0.85rem;line-height:1.4;display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;justify-content:center;text-align:center;';
+        var msg = document.createElement('span'); msg.textContent = 'Help the board make sure every household gets alerts: which home is this phone for?';
+        var yes = document.createElement('button'); yes.type = 'button'; yes.textContent = 'Choose my home';
+        yes.style.cssText = 'padding:0.4rem 0.8rem;border:none;border-radius:6px;background:#fff;color:#1a2a4a;font-weight:700;cursor:pointer;';
+        var no = document.createElement('button'); no.type = 'button'; no.textContent = 'Not now';
+        no.style.cssText = 'padding:0.4rem 0.8rem;border:1px solid rgba(255,255,255,0.6);border-radius:6px;background:transparent;color:#fff;cursor:pointer;';
+        function close() { if (bar.parentNode) bar.parentNode.removeChild(bar); }
+        no.onclick = function () { try { localStorage.setItem('hoa_push_unit_snooze', String(Date.now())); } catch (e) {} close(); };
+        yes.onclick = async function () {
+          var unit = await pushAskUnit('Save');
+          if (!unit) return;
+          try { await pushPostSubscription(sub, unit); pushSaveUnit(unit); close(); } catch (e) { alert('Could not save that right now. Please try again later.'); }
+        };
+        bar.appendChild(msg); bar.appendChild(yes); bar.appendChild(no);
+        document.body.appendChild(bar);
+      }, 1500);
+    } catch (e) {}
+  }
   function urlBase64ToUint8Array(base64String){
     var padding="=".repeat((4-base64String.length%4)%4);
     var base64=(base64String+padding).replace(/-/g,"+").replace(/_/g,"/");
@@ -65,15 +170,19 @@
         updatePushNavUI(false);
         return;
       }
+      var unit=null;
+      if(Object.keys(PUSH_UNITS).length){
+        unit=pushSavedUnit();
+        if(!unit){unit=await pushAskUnit("Turn on notifications");if(!unit)return;}
+      }
       var permission=await Notification.requestPermission();
       if(permission!=="granted"){
         alert("Notifications are blocked. To turn them on, allow notifications for this site in your browser settings.");
         return;
       }
       var sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:urlBase64ToUint8Array(PUSH_VAPID_KEY)});
-      if(PUSH_ENDPOINT){
-        await fetch(PUSH_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({formType:"pushSubscribe",subscription:sub.toJSON()})});
-      }
+      await pushPostSubscription(sub,unit);
+      if(unit)pushSaveUnit(unit);
       updatePushNavUI(true);
     }catch(e){
       console.error("Push subscribe/unsubscribe failed:",e);
@@ -83,7 +192,7 @@
   if(PUSH_VAPID_KEY&&("serviceWorker" in navigator)&&("PushManager" in window)){
     navigator.serviceWorker.register(""+"sw.js").then(function(reg){
       return reg.pushManager.getSubscription();
-    }).then(function(sub){ updatePushNavUI(!!sub); }).catch(function(){});
+    }).then(function(sub){ updatePushNavUI(!!sub); pushOfferUnit(sub); }).catch(function(){});
   }
   var deferredInstallPrompt=null;
   window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
