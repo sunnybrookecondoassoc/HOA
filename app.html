@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Get the App - Sunnybrooke Condo Association</title>
+<link rel="stylesheet" href="style.css?v=v2.15-218"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="icon" href="icon-192.png" type="image/png"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Sunnybrooke Condo Association"/>
+<script data-goatcounter="https://sunnybrookecondos.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7262d9d7b1e74dd9ba6e4d7131dce18d"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+
+<div id="iab-warning-banner" style="display:none;background:#8a6400;color:#fff;text-align:center;padding:0.55rem 1rem;font-size:0.82rem;line-height:1.5;">⚠️ You’re viewing this inside an app’s built-in browser (common when a link is opened from Facebook, Instagram, or Messenger), which can’t add this site to your home screen. Tap the <strong>⋯</strong> or <strong>Share</strong> icon above and choose <strong>Open in Safari</strong> (iPhone/iPad) or <strong>Open in Chrome</strong> (Android), then try installing again from there.</div>
+<script>
+  function isInAppBrowserUA(ua){
+    return /FBAN|FBAV|FB_IAB|Instagram|Line\/|MicroMessenger|Messenger/i.test(ua||"");
+  }
+  (function(){
+    if(isInAppBrowserUA(navigator.userAgent)){
+      var b=document.getElementById("iab-warning-banner");
+      if(b)b.style.display="block";
+    }
+  })();
+  function toggleMenu(){var nl=document.getElementById("nav-links");if(nl)nl.classList.toggle("open");}
+  var PUSH_VAPID_KEY="BH2XQO9rCf7PpZlJxnveI53IXX0O65ulvsQERD2rD1Qlta3vrpREY7ZB8EspgINgT_XpBnA-PA61zxUSmttNBCQ";
+  var PUSH_ENDPOINT="https://sunnybrooke-forms-v2.sunnybrookeca.workers.dev";
+  var PUSH_UNITS={"Sunnybrooke Drive":["1 Sunnybrooke Drive","2 Sunnybrooke Drive","3 Sunnybrooke Drive","5 Sunnybrooke Drive","7 Sunnybrooke Drive","9 Sunnybrooke Drive","11 Sunnybrooke Drive","12 Sunnybrooke Drive","13 Sunnybrooke Drive","14 Sunnybrooke Drive","15 Sunnybrooke Drive","16 Sunnybrooke Drive","17 Sunnybrooke Drive","18 Sunnybrooke Drive","19 Sunnybrooke Drive","20 Sunnybrooke Drive","21 Sunnybrooke Drive","22 Sunnybrooke Drive","23 Sunnybrooke Drive","24 Sunnybrooke Drive"],"Morgan Way":["1 Morgan Way","2 Morgan Way","3 Morgan Way","4 Morgan Way","5 Morgan Way","6 Morgan Way","7 Morgan Way","8 Morgan Way","9 Morgan Way","10 Morgan Way","11 Morgan Way","12 Morgan Way","13 Morgan Way","14 Morgan Way","15 Morgan Way","16 Morgan Way","20 Morgan Way"]};
+function pushSavedUnit() {
+    try {
+      var u = JSON.parse(localStorage.getItem('hoa_push_unit') || 'null');
+      if (u && typeof u.street === 'string' && typeof u.address === 'string'
+          && PUSH_UNITS[u.street] && PUSH_UNITS[u.street].indexOf(u.address) !== -1) return u;
+    } catch (e) {}
+    return null;
+  }
+function pushSaveUnit(unit) {
+    try { localStorage.setItem('hoa_push_unit', JSON.stringify({ street: unit.street, address: unit.address })); } catch (e) {}
+  }
+function pushPostSubscription(sub, unit) {
+    if (!PUSH_ENDPOINT) return Promise.resolve();
+    var body = { formType: 'pushSubscribe', subscription: sub.toJSON ? sub.toJSON() : sub };
+    if (unit) body.unit = { street: unit.street, address: unit.address };
+    return fetch(PUSH_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  }
+function pushQueueDelete(endpoint) {
+    try {
+      var q = JSON.parse(localStorage.getItem('hoa_push_pending_del') || '[]');
+      if (q.indexOf(endpoint) === -1) q.push(endpoint);
+      localStorage.setItem('hoa_push_pending_del', JSON.stringify(q));
+    } catch (e) {}
+  }
+function pushFlushDeletes() {
+    if (!PUSH_ENDPOINT) return Promise.resolve(true);
+    var q = [];
+    try { q = JSON.parse(localStorage.getItem('hoa_push_pending_del') || '[]'); } catch (e) {}
+    if (!q.length) return Promise.resolve(true);
+    return Promise.all(q.map(function (ep) {
+      return fetch(PUSH_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ formType: 'pushUnsubscribe', endpoint: ep }) })
+        .then(function (r) { return r.ok ? ep : null; }, function () { return null; });
+    })).then(function (done) {
+      try {
+        var left = q.filter(function (ep) { return done.indexOf(ep) === -1; });
+        if (left.length) localStorage.setItem('hoa_push_pending_del', JSON.stringify(left));
+        else localStorage.removeItem('hoa_push_pending_del');
+      } catch (e) {}
+      return done.indexOf(null) === -1;
+    });
+  }
+function pushAskUnit(confirmLabel) {
+    return new Promise(function (resolve) {
+      var streets = Object.keys(PUSH_UNITS);
+      var wrap = document.createElement('div');
+      wrap.id = 'push-unit-modal';
+      wrap.setAttribute('role', 'dialog');
+      wrap.setAttribute('aria-modal', 'true');
+      wrap.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:100000;display:flex;align-items:center;justify-content:center;padding:1rem;';
+      var card = document.createElement('div');
+      card.style.cssText = 'background:#fff;color:#222;border-radius:12px;max-width:380px;width:100%;padding:1.25rem;font-family:inherit;box-shadow:0 8px 32px rgba(0,0,0,0.35);';
+      function add(tag, css, text) { var e = document.createElement(tag); e.style.cssText = css; if (text) e.textContent = text; card.appendChild(e); return e; }
+      var labelCss = 'display:block;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:#666;margin-bottom:0.25rem;';
+      var selCss = 'width:100%;padding:0.55rem;font-size:1rem;border:1px solid #bbb;border-radius:6px;margin-bottom:0.7rem;background:#fff;color:#222;';
+      add('div', 'font-size:1.05rem;font-weight:700;margin-bottom:0.4rem;', 'Which home is this phone for?');
+      add('div', 'font-size:0.85rem;line-height:1.5;color:#555;margin-bottom:0.9rem;', 'Only the board sees this. It helps us make sure every household that wants alerts has them, and offer a hand to anyone who needs help getting set up.');
+      add('label', labelCss, 'Street');
+      var streetSel = add('select', selCss);
+      add('label', labelCss, 'Address');
+      var addrSel = add('select', selCss);
+      function fill(sel, items, placeholder) {
+        sel.innerHTML = '';
+        var o = document.createElement('option'); o.value = ''; o.textContent = placeholder; sel.appendChild(o);
+        items.forEach(function (t) { var op = document.createElement('option'); op.value = t; op.textContent = t; sel.appendChild(op); });
+      }
+      var row = add('div', 'display:flex;gap:0.6rem;margin-top:0.4rem;');
+      var cancelBtn = document.createElement('button'); cancelBtn.type = 'button'; cancelBtn.textContent = 'Cancel';
+      cancelBtn.style.cssText = 'flex:1;padding:0.65rem;font-size:0.95rem;border:1px solid #bbb;border-radius:8px;background:#fff;color:#333;cursor:pointer;';
+      var okBtn = document.createElement('button'); okBtn.type = 'button'; okBtn.textContent = confirmLabel || 'Continue';
+      okBtn.style.cssText = 'flex:2;padding:0.65rem;font-size:0.95rem;font-weight:700;border:none;border-radius:8px;background:#1a2a4a;color:#fff;cursor:pointer;';
+      row.appendChild(cancelBtn); row.appendChild(okBtn);
+      function refresh() {
+        var ready = !!(streetSel.value && addrSel.value);
+        okBtn.disabled = !ready; okBtn.style.opacity = ready ? '1' : '0.45'; okBtn.style.cursor = ready ? 'pointer' : 'not-allowed';
+      }
+      function loadAddresses() {
+        var list = (PUSH_UNITS[streetSel.value] || []).slice().sort(function (a, b) { return a.localeCompare(b, undefined, { numeric: true }); });
+        fill(addrSel, list, streetSel.value ? 'Choose your address' : 'Choose your street first');
+        addrSel.disabled = !streetSel.value;
+        refresh();
+      }
+      fill(streetSel, streets.slice().sort(), 'Choose your street');
+      if (streets.length === 1) streetSel.value = streets[0];
+      streetSel.onchange = loadAddresses;
+      addrSel.onchange = refresh;
+      loadAddresses();
+      function onKey(e) { if (e.key === 'Escape') finish(null); }
+      function finish(v) {
+        document.removeEventListener('keydown', onKey);
+        if (wrap.parentNode) wrap.parentNode.removeChild(wrap);
+        resolve(v);
+      }
+      document.addEventListener('keydown', onKey);
+      cancelBtn.onclick = function () { finish(null); };
+      okBtn.onclick = function () { if (streetSel.value && addrSel.value) finish({ street: streetSel.value, address: addrSel.value }); };
+      wrap.onclick = function (e) { if (e.target === wrap) finish(null); };
+      wrap.appendChild(card);
+      document.body.appendChild(wrap);
+    });
+  }
+function pushOfferUnit(sub) {
+    try {
+      if (!sub || !Object.keys(PUSH_UNITS).length || pushSavedUnit()) return;
+      var snooze = parseInt(localStorage.getItem('hoa_push_unit_snooze') || '0', 10);
+      if (snooze && Date.now() - snooze < 14 * 86400000) return;
+      if (document.getElementById('push-unit-banner')) return;
+      setTimeout(function () {
+        if (document.getElementById('push-unit-banner')) return;
+        var bar = document.createElement('div');
+        bar.id = 'push-unit-banner';
+        bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#1a2a4a;color:#fff;padding:0.7rem 1rem;font-size:0.85rem;line-height:1.4;display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;justify-content:center;text-align:center;';
+        var msg = document.createElement('span'); msg.textContent = 'Help the board make sure every household gets alerts: which home is this phone for?';
+        var yes = document.createElement('button'); yes.type = 'button'; yes.textContent = 'Choose my home';
+        yes.style.cssText = 'padding:0.4rem 0.8rem;border:none;border-radius:6px;background:#fff;color:#1a2a4a;font-weight:700;cursor:pointer;';
+        var no = document.createElement('button'); no.type = 'button'; no.textContent = 'Not now';
+        no.style.cssText = 'padding:0.4rem 0.8rem;border:1px solid rgba(255,255,255,0.6);border-radius:6px;background:transparent;color:#fff;cursor:pointer;';
+        function close() { if (bar.parentNode) bar.parentNode.removeChild(bar); }
+        no.onclick = function () { try { localStorage.setItem('hoa_push_unit_snooze', String(Date.now())); } catch (e) {} close(); };
+        yes.onclick = async function () {
+          var unit = await pushAskUnit('Save');
+          if (!unit) return;
+          try { await pushPostSubscription(sub, unit); pushSaveUnit(unit); close(); } catch (e) { alert('Could not save that right now. Please try again later.'); }
+        };
+        bar.appendChild(msg); bar.appendChild(yes); bar.appendChild(no);
+        document.body.appendChild(bar);
+      }, 1500);
+    } catch (e) {}
+  }
+  function urlBase64ToUint8Array(base64String){
+    var padding="=".repeat((4-base64String.length%4)%4);
+    var base64=(base64String+padding).replace(/-/g,"+").replace(/_/g,"/");
+    var rawData=atob(base64);var outputArray=new Uint8Array(rawData.length);
+    for(var i=0;i<rawData.length;i++){outputArray[i]=rawData.charCodeAt(i);}
+    return outputArray;
+  }
+  function updatePushNavUI(subscribed){
+    var link=document.getElementById("push-nav-link");
+    if(!link)return;
+    link.textContent=subscribed?"\uD83D\uDD15 Turn Off Notifications":"\uD83D\uDD14 Turn On Notifications";
+  }
+  async function togglePushSubscription(){
+    var link=document.getElementById("push-nav-link");
+    var isIOSNoInstall=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!(window.navigator.standalone===true||(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches));
+    if(isIOSNoInstall){
+      alert("On iPhone/iPad, notifications only work after the app is installed to your Home Screen. Tap \"Install The App!\" above first, then come back and tap this again.");return;
+    }
+    if(!("serviceWorker" in navigator)||!("PushManager" in window)){
+      alert("Notifications aren't supported in this browser.");return;
+    }
+    try{
+      var reg=await navigator.serviceWorker.register(""+"sw.js");
+      var existing=await reg.pushManager.getSubscription();
+      if(existing){
+        var endpoint=existing.endpoint;
+        await existing.unsubscribe();
+        pushQueueDelete(endpoint);
+        updatePushNavUI(false);
+        await pushFlushDeletes();
+        return;
+      }
+      await pushFlushDeletes();
+      var unit=null;
+      if(Object.keys(PUSH_UNITS).length){
+        unit=pushSavedUnit();
+        if(!unit){unit=await pushAskUnit("Turn on notifications");if(!unit)return;}
+      }
+      var permission=await Notification.requestPermission();
+      if(permission!=="granted"){
+        alert("Notifications are blocked. To turn them on, allow notifications for this site in your browser settings.");
+        return;
+      }
+      var sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:urlBase64ToUint8Array(PUSH_VAPID_KEY)});
+      await pushPostSubscription(sub,unit);
+      if(unit)pushSaveUnit(unit);
+      updatePushNavUI(true);
+    }catch(e){
+      console.error("Push subscribe/unsubscribe failed:",e);
+      alert("Something went wrong turning on notifications. Please try again.");
+    }
+  }
+  if(PUSH_VAPID_KEY&&("serviceWorker" in navigator)&&("PushManager" in window)){
+    navigator.serviceWorker.register(""+"sw.js").then(function(reg){
+      return reg.pushManager.getSubscription();
+    }).then(function(sub){ updatePushNavUI(!!sub); pushOfferUnit(sub); pushFlushDeletes(); }).catch(function(){});
+  }
+  var deferredInstallPrompt=null;
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstallPrompt=e;});
+  function installApp(){
+    if(isInAppBrowserUA(navigator.userAgent)){
+      alert("This opened inside an app's built-in browser, which can't install apps to your home screen. Tap the \u22EF or Share icon above and choose \"Open in Safari\" (iPhone/iPad) or \"Open in Chrome\" (Android), then tap Install again from there.");
+      return;
+    }
+    var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+    if(isIOS){
+      alert("To install: tap the Share icon, then \"Add to Home Screen\".");
+      return;
+    }
+    if(deferredInstallPrompt){
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then(function(){deferredInstallPrompt=null;});
+    } else {
+      alert("To install: open your browser menu and choose \"Install app\" or \"Add to Home Screen\".");
+    }
+  }
+  fetch("" + "events/events.json?t=" + Date.now(), {cache: "no-store"}).then(function(r){return r.json();}).then(function(events){
+    var now = new Date();
+    var liveCount = (events||[]).filter(function(ev){ return (!ev.end || new Date(ev.end) >= now) && !ev.canceled; }).length;
+    var badge = document.getElementById("events-nav-badge");
+    if (badge && liveCount > 0) { badge.textContent = liveCount; badge.style.display = "inline-block"; }
+    var cardBadge = document.getElementById("events-card-badge");
+    if (cardBadge && liveCount > 0) { cardBadge.textContent = liveCount; cardBadge.style.display = "inline-block"; }
+  }).catch(function(){});
+  fetch("" + "notices.json?t=" + Date.now(), {cache: "no-store"}).then(function(r){return r.json();}).then(function(notices){
+    function daysSince(s){ if(!s) return 999999; var t=new Date(s+"T00:00:00"); return Math.floor((new Date()-t)/86400000); }
+    var freshNotices = (notices||[]).filter(function(n){ var days=(n.newDays===""||n.newDays==null)?7:Number(n.newDays); return daysSince(n.publishedDate) < days; });
+    var newCount = freshNotices.length;
+    var hasPetAlert = freshNotices.some(function(n){ return (n.title||"").indexOf("🐾") !== -1; });
+    var hasUrgentAlert = hasPetAlert || freshNotices.some(function(n){ return n.urgentAlert === true; });
+    var badgeText = hasUrgentAlert ? ((hasPetAlert ? "🐾" : "⚠️") + newCount) : String(newCount);
+    var nb = document.getElementById("notices-nav-badge");
+    if (nb && newCount > 0) { nb.textContent = badgeText; nb.style.display = "inline-block"; nb.classList.toggle("urgent-alert", hasUrgentAlert); }
+    var ncb = document.getElementById("notices-card-badge");
+    if (ncb && newCount > 0) { ncb.textContent = badgeText; ncb.style.display = "inline-block"; ncb.classList.toggle("urgent-alert", hasUrgentAlert); }
+  }).catch(function(){});
+</script>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand-row">
+      <a class="nav-brand" href="index.html">Sunnybrooke Condo Association</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li class="nav-utility-row"><a href="#" onclick="installApp();return false;">Install The SCA App!</a><a href="#" id="push-nav-link" onclick="togglePushSubscription();return false;">🔔 Turn On Notifications</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="documents.html">Documents</a></li>
+      <li><a href="vendors.html">Preferred Vendors</a></li>
+      <li><a href="lenders.html">Lenders &amp; Realtors</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="residents.html">Residents</a></li>
+      <li><a href="events.html"><span class="badge-anchor">Events<span id="events-nav-badge" class="count-badge" style="display:none;"></span></span></a></li>
+      <li><a href="notices.html"><span class="badge-anchor">🔔<span id="notices-nav-badge" class="count-badge" style="display:none;"></span></span></a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+<div class="page-header"><h1>Get the SCA App</h1><p>Put it on your phone, then turn on notifications.</p></div>
+<div class="container" style="max-width:640px;"><div id="app-cards" style="display:flex;flex-direction:column;">
+<div class="info-block" id="app-card-install" style="order:0;"><h2>Install the app</h2>
+<div id="app-in-done" data-app-group="in" style="display:none;"><div style="background:#e8f5e9;border-left:3px solid #2e7d32;border-radius:0 6px 6px 0;padding:0.85rem 1.1rem;font-size:0.9rem;line-height:1.6;">The app is installed on this device. You can skip to turning on notifications.</div></div>
+<div id="app-in-iab" data-app-group="in" style="display:none;"><div style="background:#fff4e0;border-left:3px solid #8a6400;border-radius:0 6px 6px 0;padding:0.85rem 1.1rem;font-size:0.88rem;line-height:1.6;">This page opened inside another app's built-in browser (common when a link is tapped from Facebook, Instagram or Messenger), which cannot install apps. Tap the <strong>&#8943;</strong> or <strong>Share</strong> icon and choose <strong>Open in Safari</strong> (iPhone and iPad) or <strong>Open in Chrome</strong> (Android), then come back to this page.</div></div>
+<div id="app-in-ios" data-app-group="in" style="display:none;"><p>Apple does not allow a website to install itself with one tap, so it takes four quick steps:</p><ol style="padding-left:1.25rem;margin:0.4rem 0 0.8rem;"><li>Make sure this page is open in <strong>Safari</strong>. If it opened inside Gmail or another app, tap the compass or "Open in Safari" icon.</li><li>Tap the <strong>Share</strong> button (the square with an arrow pointing up) at the bottom of the screen.</li><li>Scroll down and tap <strong>Add to Home Screen</strong>.</li><li>Tap <strong>Add</strong>. The app icon now appears on your Home Screen.</li></ol><div class="highlight-box">After it is on your Home Screen, open the app from there to turn on notifications (see the next section).</div></div>
+<div id="app-in-android" data-app-group="in" style="display:block;"><p>Tap the button and then tap <strong>Install</strong> when your phone asks.</p><button type="button" id="app-install-btn" style="display:block;width:100%;padding:0.95rem 1.2rem;font-size:1.05rem;font-weight:700;border:none;border-radius:10px;background:var(--primary,#2c4a6e);color:#fff;cursor:pointer;font-family:inherit;margin:0.6rem 0;">Install the App</button><p style="font-size:0.82rem;color:var(--text-muted);">If nothing appears, open your browser menu (the three dots) and choose <strong>Install app</strong> or <strong>Add to Home Screen</strong>. Already installed it? Skip to the next section.</p></div>
+</div>
+<div class="info-block" id="app-card-notify" style="order:1;"><h2>Turn on notifications</h2>
+<div id="app-nt-ios" data-app-group="nt" style="display:none;"><p>On iPhone and iPad, notifications only work from the installed app. Install it first (see above), then open the app from your Home Screen, tap the menu, and choose <strong>Turn On Notifications</strong>.</p></div>
+<div id="app-nt-unsupported" data-app-group="nt" style="display:none;"><div style="background:#fff4e0;border-left:3px solid #8a6400;border-radius:0 6px 6px 0;padding:0.85rem 1.1rem;font-size:0.88rem;line-height:1.6;">This browser does not support notifications. Try Chrome on Android, or install the app on an iPhone or iPad.</div></div>
+<div id="app-nt-on" data-app-group="nt" style="display:none;"><div style="background:#e8f5e9;border-left:3px solid #2e7d32;border-radius:0 6px 6px 0;padding:0.85rem 1.1rem;font-size:0.9rem;line-height:1.6;">Notifications are on for this device. <span id="app-nt-home" style="display:block;font-weight:600;"></span></div></div>
+<div id="app-nt-off" data-app-group="nt" style="display:block;"><p>You will choose your street and address, then your phone will ask permission to send notifications. Only the board sees which home a phone belongs to.</p><button type="button" id="app-notify-btn" style="display:block;width:100%;padding:0.95rem 1.2rem;font-size:1.05rem;font-weight:700;border:none;border-radius:10px;background:var(--primary,#2c4a6e);color:#fff;cursor:pointer;font-family:inherit;margin:0.6rem 0;">Turn On Notifications</button></div>
+</div>
+</div>
+<noscript><div class="info-block"><p>This page needs JavaScript. You can also use the Install The App and Turn On Notifications links in the menu on any page.</p></div></noscript>
+</div></main>
+<script>(function appPageRuntime(swPath) {
+    function el(id) { return document.getElementById(id); }
+    function pick(group, id) {
+      var all = document.querySelectorAll('[data-app-group="' + group + '"]');
+      for (var i = 0; i < all.length; i++) all[i].style.display = (all[i].id === id) ? 'block' : 'none';
+    }
+    try {
+      var m = /[?&]step=(install|notify)(&|$)/.exec(location.search);
+      var step = m ? m[1] : '';
+      var ua = navigator.userAgent || '';
+      var standalone = window.navigator.standalone === true || !!(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+      var ios = /iphone|ipad|ipod/i.test(ua);
+      var iab = (typeof isInAppBrowserUA === 'function') && isInAppBrowserUA(ua);
+      var wrap = el('app-cards');
+      // The link that was tapped decides which card comes first.
+      if (step === 'notify') { el('app-card-notify').style.order = '-1'; }
+      // Install card
+      if (standalone) pick('in', 'app-in-done');
+      else if (iab) pick('in', 'app-in-iab');
+      else if (ios) pick('in', 'app-in-ios');
+      else pick('in', 'app-in-android');
+      var ib = el('app-install-btn');
+      if (ib) ib.onclick = function () { if (typeof installApp === 'function') installApp(); };
+      window.addEventListener('appinstalled', function () { pick('in', 'app-in-done'); });
+      // Notifications card
+      var hasPush = (typeof PUSH_VAPID_KEY !== 'undefined') && !!PUSH_VAPID_KEY;
+      if (!hasPush) { el('app-card-notify').style.display = 'none'; return; }
+      if (ios && !standalone) { pick('nt', 'app-nt-ios'); return; }
+      if (!('serviceWorker' in navigator) || !('PushManager' in window)) { pick('nt', 'app-nt-unsupported'); return; }
+      var nb = el('app-notify-btn');
+      function refresh() {
+        return navigator.serviceWorker.register(swPath).then(function (reg) {
+          return reg.pushManager.getSubscription();
+        }).then(function (sub) {
+          if (sub) {
+            var u = (typeof pushSavedUnit === 'function') ? pushSavedUnit() : null;
+            var h = el('app-nt-home');
+            if (h) h.textContent = u ? ('Home: ' + (u.address.indexOf(u.street) !== -1 ? u.address : u.address + ' ' + u.street)) : '';
+            pick('nt', 'app-nt-on');
+          } else {
+            pick('nt', 'app-nt-off');
+          }
+          return !!sub;
+        }).catch(function () { pick('nt', 'app-nt-off'); return false; });
+      }
+      if (nb) nb.onclick = function () {
+        if (typeof togglePushSubscription !== 'function') return;
+        Promise.resolve(togglePushSubscription()).then(refresh, refresh);
+      };
+      refresh().then(function (on) {
+        // From the notifications link: open the street and address picker right
+        // away. Its own button gives the tap the permission prompt needs. Only
+        // when the picker will really appear; otherwise wait for the button.
+        var pickerComing = (typeof PUSH_UNITS !== 'undefined') && Object.keys(PUSH_UNITS).length && !(typeof pushSavedUnit === 'function' && pushSavedUnit());
+        if (step === 'notify' && !on && pickerComing && nb) setTimeout(function () { nb.click(); }, 400);
+      });
+    } catch (e) {}
+  })("sw.js");</script>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand-wrap"><span class="footer-brand"><a href="https://www.facebook.com/profile.php?id=61590887171758" target="_blank" rel="noopener" style="display:inline-block;line-height:0;"><img src="brandlogo.png" alt="logo" style="height:22px;width:auto;vertical-align:middle;opacity:0.75;"/></a></span></div>
+    <p><strong>Sunnybrooke Condo Association</strong> &middot; PO Box 1367, Dover, NH, 03821 &middot; <a href="mailto:SunnybrookeCondo@gmail.com">SunnybrookeCondo@gmail.com</a></p>
+    <div class="footer-brand-spacer"></div>
+  </div>
+</footer>
+</body>
+</html>
